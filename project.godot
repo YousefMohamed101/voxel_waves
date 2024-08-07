@@ -1,0 +1,36 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Voxel_Waves"
+run/main_scene="res://Scenes/splash_screen.tscn"
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+SceneTransitions="*res://Scenes/SceneTransitions.tscn"
+MouseTexture="*res://Scripts/MouseTexture.cs"
+GameOptions="*res://Scripts/GameOptions.cs"
+GameMusicHandler="*res://Scenes/GameAudioHandle.tscn"
+
+[dotnet]
+
+project/assembly_name="Voxel_Waves"
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://Localisation/VoxelWave_Translation_U.en.translation", "res://Localisation/VoxelWave_Translation_U.es.translation", "res://Localisation/VoxelWave_Translation_U.fr.translation")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2atkfa3fh7e1"]
+
+[ext_resource type="Script" path="res://Scripts/GameMusicHandler.cs" id="1_187gd"]
+
+[node name="GameMusicHandle" type="Node"]
+script = ExtResource("1_187gd")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"BGM"

@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://mldu8x500kl5"]
+
+[ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="2_ap4rg"]
+
+[node name="Splash Screen" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.960784, 0.509804, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ap4rg")
+theme_override_font_sizes/font_size = 80
+text = "Controls:
+1. W,A,S,D to move.
+2. Space to Jump.
+3. Left click to Shoot.
+4. Right click To Reload.
+Tip:
+Head Kills Instantly.
+Body takes two hits.
+Legs and Arms takes 3 hits."
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true

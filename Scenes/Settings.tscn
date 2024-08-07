@@ -1,0 +1,160 @@
+[gd_scene load_steps=6 format=3 uid="uid://xq4i6wcx4moy"]
+
+[ext_resource type="Script" path="res://Scripts/Settings.cs" id="1_7jtm0"]
+[ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="1_u7743"]
+[ext_resource type="StyleBox" uid="uid://b4qhqnu52u2uh" path="res://Resources/Button_pressed.tres" id="2_ivuc8"]
+[ext_resource type="StyleBox" uid="uid://cm10twuk3gd4m" path="res://Resources/Button_Released.tres" id="3_trr16"]
+[ext_resource type="ButtonGroup" uid="uid://br160vx5lmure" path="res://Resources/Language_Button_Group.tres" id="5_7q7um"]
+
+[node name="Settings" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.887322, 0.383976, 0, 1)
+script = ExtResource("1_7jtm0")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -126.0
+offset_right = 296.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Resolution" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 50
+alignment = 1
+selected = 0
+allow_reselect = true
+item_count = 7
+popup/item_0/text = "1280x720"
+popup/item_1/text = "1280x1024"
+popup/item_1/id = 1
+popup/item_2/text = "1366x768"
+popup/item_2/id = 2
+popup/item_3/text = "1536x864"
+popup/item_3/id = 3
+popup/item_4/text = "1600x900"
+popup/item_4/id = 4
+popup/item_5/text = "1920x1080"
+popup/item_5/id = 5
+popup/item_6/text = "2540x1440"
+popup/item_6/id = 6
+
+[node name="Language" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+text = "Language"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="EN" type="Button" parent="CenterContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = ExtResource("2_ivuc8")
+theme_override_styles/normal = ExtResource("3_trr16")
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("5_7q7um")
+text = "EN"
+
+[node name="FR" type="Button" parent="CenterContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = ExtResource("2_ivuc8")
+theme_override_styles/normal = ExtResource("3_trr16")
+toggle_mode = true
+button_group = ExtResource("5_7q7um")
+text = "FR"
+
+[node name="ES" type="Button" parent="CenterContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = ExtResource("2_ivuc8")
+theme_override_styles/normal = ExtResource("3_trr16")
+toggle_mode = true
+button_group = ExtResource("5_7q7um")
+text = "ES"
+
+[node name="MasterVolume" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+text = "Master Volume"
+
+[node name="Master" type="HSlider" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -80.0
+max_value = 0.0
+
+[node name="Background music" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+text = "Background music"
+
+[node name="BGM" type="HSlider" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -80.0
+max_value = 0.0
+
+[node name="Sound Effect" type="Label" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+text = "Sound effect"
+
+[node name="Effects" type="HSlider" parent="CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Back" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_u7743")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = ExtResource("2_ivuc8")
+theme_override_styles/normal = ExtResource("3_trr16")
+text = "Back"
+
+[connection signal="toggled" from="CenterContainer/VBoxContainer/GridContainer/HBoxContainer/EN" to="." method="_ToggleLanguage" binds= ["en"]]
+[connection signal="toggled" from="CenterContainer/VBoxContainer/GridContainer/HBoxContainer/FR" to="." method="_ToggleLanguage" binds= ["fr"]]
+[connection signal="toggled" from="CenterContainer/VBoxContainer/GridContainer/HBoxContainer/ES" to="." method="_ToggleLanguage" binds= ["es"]]

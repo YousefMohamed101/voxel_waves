@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cn4ed4p57k3mp"
+path="res://.godot/imported/CountrySide-3-GroundTile1.obj-45c094c8bdd0a1ac2c0a0f7119372f3f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/CountrySide-3-GroundTile1.obj-45c094c8bdd0a1ac2c0a0f7119372f3f.mesh"]
+
+source_file="res://terrain/Obj/CountrySide-3-GroundTile1.obj"
+dest_files=["res://.godot/imported/CountrySide-3-GroundTile1.obj-45c094c8bdd0a1ac2c0a0f7119372f3f.mesh", "res://.godot/imported/CountrySide-3-GroundTile1.obj-45c094c8bdd0a1ac2c0a0f7119372f3f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

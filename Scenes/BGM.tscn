@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c82dqq8vyv78j"]
+
+[node name="Bgm" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"BGM"

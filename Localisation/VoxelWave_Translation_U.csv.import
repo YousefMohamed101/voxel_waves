@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cw4ncs5mjyc1a"
+
+[deps]
+
+files=["res://Localisation/VoxelWave_Translation_U.en.translation", "res://Localisation/VoxelWave_Translation_U.fr.translation", "res://Localisation/VoxelWave_Translation_U.es.translation"]
+
+source_file="res://Localisation/VoxelWave_Translation_U.csv"
+dest_files=["res://Localisation/VoxelWave_Translation_U.en.translation", "res://Localisation/VoxelWave_Translation_U.fr.translation", "res://Localisation/VoxelWave_Translation_U.es.translation"]
+
+[params]
+
+compress=true
+delimiter=0

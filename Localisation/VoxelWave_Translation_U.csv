@@ -1,0 +1,55 @@
+﻿key,en,fr,es
+play,play,joer,jugar
+PLAY,PLAY,JOER,JUGAR
+settings,settings,paramètres,ajustes
+Settings,SETTINGS,PARAMÈTRES,AJUSTES
+Background music,Background music,Musique de fond,Música de fondo
+New Game,New Game,Nouvelle partie,Juego nuevo
+Quit,Quit,Quitter,Cerrar
+Back,Back,Retour,Volver
+Pause,Pause,Pause,Pausa
+Paused,Paused,En pause,Pausado
+Resolution,Resolution,Résolution,Resolución
+Sound effect volume,Sound effect volume,Volume des effets sonores,Volumen de los efectos de sonido
+Master Volume,Master Volume,Volume principal,Volumen principal
+"Controls:
+1. W,A,S,D to move.
+2. Space to Jump.
+3. Left click to Shoot.
+4. Right click To Reload.
+Tip:
+Head Kills Instantly.
+Body takes two hits.
+Legs and Arms takes 3 hits.","Controls:
+1. W,A,S,D to move.
+2. Space to Jump.
+3. Left click to Shoot.
+4. Right click To Reload.
+Tip:
+Head Kills Instantly.
+Body takes two hits.
+Legs and Arms takes 3 hits.","Contrôles:
+1. W,A,S,D pour se déplacer.
+2. Espace pour sauter.
+3. Clic gauche pour tirer.
+4. Cliquez avec le bouton droit sur Recharger.
+Conseil:
+La tête tue instantanément.
+Le corps prend deux coups.
+Les jambes et les bras prennent 3 coups.","Controles:
+1. W,A,S,D para moverse.
+2. Espacio para saltar.
+3. Haga clic izquierdo para disparar.
+4. Haga clic derecho para recargar.
+Consejo:
+La cabeza mata al instante.
+El cuerpo recibe dos golpes.
+Piernas y Brazos recibe 3 golpes."
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
