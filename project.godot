@@ -22,6 +22,11 @@ MouseTexture="*res://Scripts/MouseTexture.cs"
 GameOptions="*res://Scripts/GameOptions.cs"
 GameMusicHandler="*res://Scenes/GameAudioHandle.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="Voxel_Waves"
