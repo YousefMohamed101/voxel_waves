@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgxdagti164ga"]
+
+[ext_resource type="PackedScene" uid="uid://bfk1lu2enu4ml" path="res://3d models/Guns/ak47.fbx" id="1_csgl8"]
+[ext_resource type="Script" path="res://3d models/Guns/Ak47.cs" id="2_dweoj"]
+
+[sub_resource type="Animation" id="Animation_6srse"]
+resource_name = "IDLE"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w3h7m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i8qsb"]
+resource_name = "Reload"
+length = 3.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.25, 2, 3),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 2, 2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.357546, 0, 0), Vector3(0.357546, 0, 0), Vector3(0.357546, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.25, 2, 3),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 2, 2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.789901), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ju63"]
+_data = {
+"IDLE": SubResource("Animation_6srse"),
+"RESET": SubResource("Animation_w3h7m"),
+"Reload": SubResource("Animation_i8qsb")
+}
+
+[node name="ak47" instance=ExtResource("1_csgl8")]
+script = ExtResource("2_dweoj")
+BulletSpeed = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_3ju63")
+}
+
+[node name="Camera3D" type="Camera3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33707, 0, 3.20523)
+
+[node name="FiringPoint" type="Marker3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85045, -0.373502, 0)

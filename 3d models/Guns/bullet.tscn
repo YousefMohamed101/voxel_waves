@@ -1,0 +1,57 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgt7omtofdgfy"]
+
+[ext_resource type="PackedScene" uid="uid://d0carvopxmpqx" path="res://3d models/Guns/bullet.fbx" id="1_5pnxq"]
+[ext_resource type="Script" path="res://3d models/Guns/Bullet2.cs" id="2_t1kyl"]
+[ext_resource type="Shader" path="res://GPUTrail-main/shaders/trail.gdshader" id="3_fpi66"]
+[ext_resource type="Shader" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_8x2dn"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://GPUTrail-main/defaults/texture.tres" id="5_ovyu3"]
+[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://GPUTrail-main/defaults/curve.tres" id="6_uwbyl"]
+[ext_resource type="Script" path="res://GPUTrail-main/GPUTrail3D.gd" id="7_oprvl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ucbx0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uta7i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v242n"]
+shader = ExtResource("3_fpi66")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07kkf"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_8x2dn")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+shader_parameter/color_ramp = ExtResource("5_ovyu3")
+shader_parameter/curve = ExtResource("6_uwbyl")
+
+[sub_resource type="QuadMesh" id="QuadMesh_wne06"]
+material = SubResource("ShaderMaterial_07kkf")
+
+[node name="bullet" instance=ExtResource("1_5pnxq")]
+script = ExtResource("2_t1kyl")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." index="0"]
+mass = 0.008
+physics_material_override = SubResource("PhysicsMaterial_ucbx0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" index="0"]
+transform = Transform3D(-0.000261656, 0.0712514, 0, -0.0379534, -0.000491217, 0, 0, 0, 0.0383002, 0.0212761, 0, 0)
+shape = SubResource("CapsuleShape3D_uta7i")
+
+[node name="Cylinder_019" parent="." index="1"]
+transform = Transform3D(-7.47709e-09, 0.171056, 0, -0.171056, -7.47709e-09, 0, 0, 0, 0.171056, 0, 0, 0)
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="." index="2"]
+transform = Transform3D(0.0106251, 0, 0, 0, 0.0174081, 0, 0, 0, 0.00577724, 0.00448632, 0, 0)
+amount = 50
+lifetime = 50.0
+explosiveness = 1.0
+fixed_fps = 0
+collision_base_size = 0.0
+process_material = SubResource("ShaderMaterial_v242n")
+draw_pass_1 = SubResource("QuadMesh_wne06")
+script = ExtResource("7_oprvl")
+length = 50
+color_ramp = ExtResource("5_ovyu3")
+curve = ExtResource("6_uwbyl")
+_defaults_have_been_set = true

@@ -4,36 +4,48 @@ using System;
 public partial class Player : CharacterBody3D
 {
 	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	public float JumpVelocity;
+	public float W_Gravity = 9.8f;
+
+
 	private Camera3D camera;
 	[Export] public float Sensitivity = 0.1f;
 	[Export] public float MaxPitch = 90.0f;
 	[Export] public float MinPitch = -90.0f;
+	[Export] public float Strength = 8.0f;
 
+	private Marker3D Equip;
 	private float _yaw = 0.0f;
 	private float _pitch = 0.0f;
 	[Export] private float Run_Speed = 1.5f;
+	[Export] private float Weight = 1.5f;
 	public override void _Ready()
 	{
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
 		camera.Rotation = new Vector3(0, 0, 0);
 	}
+
+
+
+
+
+
 	public override void _PhysicsProcess(double delta)
 	{
 
 		Vector3 velocity = Velocity;
-
+		JumpVelocity = Mathf.Sqrt(2 * Strength * W_Gravity);
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity += GetGravity() * (float)delta;
+			velocity += GetGravity() * (float)delta * Weight;
 		}
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("Jump") && IsOnFloor())
 		{
-			velocity.Y = JumpVelocity;
+			velocity.Y = JumpVelocity / Weight;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -57,7 +69,7 @@ public partial class Player : CharacterBody3D
 			velocity.Z = direction.Z * currentSpeed;
 
 		}
-		else
+		else if (direction == Vector3.Zero && IsOnFloor())
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);

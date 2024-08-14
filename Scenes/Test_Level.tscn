@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://8frto3v3j7qi"]
+[gd_scene load_steps=4 format=3 uid="uid://8frto3v3j7qi"]
 
 [ext_resource type="MeshLibrary" uid="uid://cu2k2fwwgfcwk" path="res://terrain/EnvLibraries/Dirt_Map.meshlib" id="1_a1ktv"]
+[ext_resource type="Script" path="res://Scenes/TestLevel.cs" id="1_rny7p"]
 [ext_resource type="PackedScene" uid="uid://ckxrdtywwtc2w" path="res://Scenes/Player.tscn" id="2_guhtt"]
 
 [node name="TestLevel" type="Node3D"]
+script = ExtResource("1_rny7p")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_a1ktv")
@@ -13,4 +15,8 @@ data = {
 }
 
 [node name="Player" parent="." instance=ExtResource("2_guhtt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.0352, 6.9835, 12.1223)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01215, 1.24373, 4.15753)
+
+[connection signal="Shoot" from="Player/Camera3D/Marker3D/ak47" to="." method="OnPlayerShoot"]
+
+[editable path="Player"]
