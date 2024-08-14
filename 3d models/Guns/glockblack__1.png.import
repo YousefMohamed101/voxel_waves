@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kruwvtwfwaq2"
-path.s3tc="res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.s3tc.ctex"
+uid="uid://x2qubd2j101f"
+path="res://.godot/imported/glockblack__1.png-7a3fce079745b4880dece25e008c191d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "fd85eca15e95813d4e816b8159245fb1"
 }
 
 [deps]
 
-source_file="res://Logo/Studio.png"
-dest_files=["res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.s3tc.ctex"]
+source_file="res://3d models/Guns/glockblack__1.png"
+dest_files=["res://.godot/imported/glockblack__1.png-7a3fce079745b4880dece25e008c191d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -32,4 +34,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

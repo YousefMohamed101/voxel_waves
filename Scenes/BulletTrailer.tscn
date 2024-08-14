@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2xoptnkpkcke"]
+
+[ext_resource type="Script" path="res://Scripts/BulletTrailer.cs" id="1_rw5yg"]
+
+[node name="BulletTrailer" type="Line2D"]
+script = ExtResource("1_rw5yg")

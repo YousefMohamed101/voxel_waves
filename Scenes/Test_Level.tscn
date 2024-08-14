@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://8frto3v3j7qi"]
+
+[ext_resource type="MeshLibrary" uid="uid://cu2k2fwwgfcwk" path="res://terrain/EnvLibraries/Dirt_Map.meshlib" id="1_a1ktv"]
+[ext_resource type="Script" path="res://Scenes/TestLevel.cs" id="1_rny7p"]
+[ext_resource type="PackedScene" uid="uid://ckxrdtywwtc2w" path="res://Scenes/Player.tscn" id="2_guhtt"]
+
+[node name="TestLevel" type="Node3D"]
+script = ExtResource("1_rny7p")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_a1ktv")
+cell_size = Vector3(10, 0.6, 10)
+data = {
+"cells": PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 1, 4, 1, 1, 5, 1, 1, 6, 1, 1, 7, 1, 1, 8, 1, 2, 1, 1, 2, 2, 1, 2, 3, 1, 2, 4, 1, 2, 5, 1, 2, 6, 1, 2, 7, 1, 2, 8, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 7, 1, 3, 8, 1, 4, 1, 1, 4, 2, 1, 4, 3, 1, 4, 4, 1, 4, 5, 1, 4, 6, 1, 4, 7, 1, 4, 8, 1, 5, 1, 1, 5, 2, 1, 5, 3, 1, 5, 4, 1, 5, 5, 1, 5, 6, 1, 5, 7, 1, 5, 8, 1, 6, 1, 1, 6, 2, 1, 6, 3, 1, 6, 4, 1, 6, 5, 1, 6, 6, 1, 6, 7, 1, 6, 8, 1)
+}
+
+[node name="Player" parent="." instance=ExtResource("2_guhtt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01215, 1.24373, 4.15753)
+
+[connection signal="Shoot" from="Player/Camera3D/Marker3D/ak47" to="." method="OnPlayerShoot"]
+
+[editable path="Player"]

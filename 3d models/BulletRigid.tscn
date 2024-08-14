@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl5l4hdxnpsts"]
+
+[ext_resource type="ArrayMesh" uid="uid://cj2ayf41sms6k" path="res://3d models/testy.res" id="1_4fq4i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k452p"]
+
+[node name="BulletRigid" type="RigidBody3D"]
+mass = 0.008
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.00111176, 0.139996, 0, -0.139996, 0.00111176, 0, 0, 0, 0.14, 0, 0, 0)
+mesh = ExtResource("1_4fq4i")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.000253648, 0.0561867, 0, 0.0367918, -0.000387359, 0, 0, 0, 0.0402472, 0.0212761, 0, 0)
+shape = SubResource("CapsuleShape3D_k452p")
