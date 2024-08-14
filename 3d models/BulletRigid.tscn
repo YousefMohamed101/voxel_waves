@@ -13,5 +13,5 @@ mesh = ExtResource("1_4fq4i")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.000253648, 0.0561867, 0, 0.0367918, -0.000387359, 0, 0, 0, 0.0402472, 0.0212761, 0, 0)
+transform = Transform3D(-0.000275761, -0.039999, 6.03983e-09, -0.039999, 0.000275761, -3.79356e-19, -4.16387e-11, -6.03969e-09, -0.04, 0.0371574, 0, 0)
 shape = SubResource("CapsuleShape3D_k452p")
