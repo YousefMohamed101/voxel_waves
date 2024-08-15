@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgxdagti164ga"]
+[gd_scene load_steps=8 format=3 uid="uid://cgxdagti164ga"]
 
 [ext_resource type="PackedScene" uid="uid://bfk1lu2enu4ml" path="res://3d models/Guns/ak47.fbx" id="1_csgl8"]
 [ext_resource type="Script" path="res://3d models/Guns/Ak47.cs" id="2_dweoj"]
@@ -74,15 +74,34 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.789901), Vector3(0, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_g2ptg"]
+resource_name = "Shooting"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-0.243785, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ju63"]
 _data = {
 "IDLE": SubResource("Animation_6srse"),
 "RESET": SubResource("Animation_w3h7m"),
-"Reload": SubResource("Animation_i8qsb")
+"Reload": SubResource("Animation_i8qsb"),
+"Shooting": SubResource("Animation_g2ptg")
 }
 
 [node name="ak47" instance=ExtResource("1_csgl8")]
 script = ExtResource("2_dweoj")
+FireRate = 0.1
 BulletSpeed = 50.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -95,3 +114,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33707, 0, 3.20523)
 
 [node name="FiringPoint" type="Marker3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85045, -0.373502, 0)
+
+[node name="RateOfFire" type="Timer" parent="." index="4"]
+process_callback = 0
