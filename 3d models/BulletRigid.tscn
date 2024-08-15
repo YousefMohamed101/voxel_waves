@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl5l4hdxnpsts"]
+[gd_scene load_steps=4 format=3 uid="uid://cl5l4hdxnpsts"]
 
+[ext_resource type="Script" path="res://3d models/BulletRigidPhysics.cs" id="1_1d8uc"]
 [ext_resource type="ArrayMesh" uid="uid://cj2ayf41sms6k" path="res://3d models/testy.res" id="1_4fq4i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k452p"]
 
 [node name="BulletRigid" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 mass = 0.008
+gravity_scale = 0.0
+script = ExtResource("1_1d8uc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.00111176, 0.139996, 0, -0.139996, 0.00111176, 0, 0, 0, 0.14, 0, 0, 0)

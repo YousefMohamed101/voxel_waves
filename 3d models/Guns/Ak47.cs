@@ -26,7 +26,7 @@ public partial class Ak47 : Node3D
 		{
 			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
 			{
-				EmitSignal(SignalName.Shoot, BulletScene, -camerainfo.GlobalBasis.Z.Normalized(), firingPoint.GlobalPosition, BulletSpeed);
+				EmitSignal(SignalName.Shoot, BulletScene, firingPoint.GlobalBasis, -camerainfo.GlobalBasis.Z, firingPoint.GlobalPosition, BulletSpeed);
 			}
 		}
 	}

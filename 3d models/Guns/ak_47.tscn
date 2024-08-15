@@ -83,7 +83,7 @@ _data = {
 
 [node name="ak47" instance=ExtResource("1_csgl8")]
 script = ExtResource("2_dweoj")
-BulletSpeed = 10.0
+BulletSpeed = 50.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 libraries = {
