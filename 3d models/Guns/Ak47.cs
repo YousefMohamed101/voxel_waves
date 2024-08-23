@@ -1,66 +1,23 @@
 using Godot;
 using System;
 
-public partial class Ak47 : Node3D
+public partial class Ak47 : Weapon
 {
-	[Signal]
-	public delegate void ShootEventHandler(PackedScene bullet, Vector3 direction, Vector3 location, float BulletSpeedE);
-	[Export]
-	public PackedScene BulletScene = GD.Load<PackedScene>("res://3d models/BulletRigid.tscn");   // Reference to the bullet scene
-	[Export]
-	public float FireRate { get; set; } = 2.0f;  // Time between shots
-	[Export]
-	public float BulletSpeed { get; set; } = 700.0f;  // Speed of the bullet
-	private Marker3D firingPoint;
-	private Camera3D camerainfo;
-	private bool mouse_left_down = false;
-	private Timer RateOfFire;
+	[Export] public PackedScene BulletScene;
+	[Export] public float BulletSpeed { get; set; } = 60.0f;
+	[Export] public int MagazineSize { get; set; } = 30;
+	[Export] public new float FireRate { get; set; } = 0.1f; // Faster fire rate for automatic
+	private Marker3D FiringPoint;
 	public override void _Ready()
 	{
-		firingPoint = GetNode<Marker3D>("FiringPoint");
-		camerainfo = GetNode<Camera3D>("/root/TestLevel/Player/Camera3D");
-		RateOfFire = GetNode<Timer>("RateOfFire");
-
-		RateOfFire.WaitTime = FireRate;
-		RateOfFire.OneShot = true;
-		RateOfFire.Timeout += () => RateOfShoot();
-
-
-
+		FiringPoint = GetNode<Marker3D>("FiringPoint");
 	}
-
-	public override void _Input(InputEvent @event)
+	public override void UseWeapon()
 	{
-		if (@event is InputEventMouseButton mouseButton)
-		{
-			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
-			{
-				mouse_left_down = true;
 
-			}
-			else
-			{
-				mouse_left_down = false;
-			}
-		}
+		EmitSignal(SignalName.PlayerShoot, BulletScene, FiringPoint.GlobalBasis, FiringPoint.GlobalBasis.X, FiringPoint.GlobalPosition, BulletSpeed);
 	}
 
-	public override void _Process(double delta)
-	{
-		if (mouse_left_down)
-		{
-			if (RateOfFire.IsStopped())
-			{
-				RateOfFire.Start(); // Start the Timer if it's not already running
-			}
-
-		}
-	}
-
-	private void RateOfShoot()
-	{
-		EmitSignal(SignalName.Shoot, BulletScene, firingPoint.GlobalBasis, -camerainfo.GlobalBasis.Z, firingPoint.GlobalPosition, BulletSpeed);
-	}
 }
 
 

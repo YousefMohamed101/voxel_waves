@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgxdagti164ga"]
+[gd_scene load_steps=9 format=3 uid="uid://cgxdagti164ga"]
 
 [ext_resource type="PackedScene" uid="uid://bfk1lu2enu4ml" path="res://3d models/Guns/ak47.fbx" id="1_csgl8"]
 [ext_resource type="Script" path="res://3d models/Guns/Ak47.cs" id="2_dweoj"]
+[ext_resource type="PackedScene" uid="uid://cl5l4hdxnpsts" path="res://3d models/BulletRigid.tscn" id="3_pnisv"]
 
 [sub_resource type="Animation" id="Animation_6srse"]
 resource_name = "IDLE"
@@ -101,7 +102,7 @@ _data = {
 
 [node name="ak47" instance=ExtResource("1_csgl8")]
 script = ExtResource("2_dweoj")
-FireRate = 0.1
+BulletScene = ExtResource("3_pnisv")
 BulletSpeed = 50.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -109,11 +110,8 @@ libraries = {
 "": SubResource("AnimationLibrary_3ju63")
 }
 
-[node name="Camera3D" type="Camera3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33707, 0, 3.20523)
-
-[node name="FiringPoint" type="Marker3D" parent="." index="3"]
+[node name="FiringPoint" type="Marker3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85045, -0.373502, 0)
 
-[node name="RateOfFire" type="Timer" parent="." index="4"]
+[node name="RateOfFire" type="Timer" parent="." index="3"]
 process_callback = 0

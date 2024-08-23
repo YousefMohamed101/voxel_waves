@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckxrdtywwtc2w"]
+[gd_scene load_steps=6 format=3 uid="uid://ckxrdtywwtc2w"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q7yn7"]
 [ext_resource type="PackedScene" uid="uid://oyhc6r7xknhm" path="res://Scenes/HUD.tscn" id="2_1eun8"]
-[ext_resource type="PackedScene" uid="uid://cgxdagti164ga" path="res://3d models/Guns/ak_47.tscn" id="2_dyn1a"]
-[ext_resource type="Script" path="res://Scenes/Marker3d.cs" id="2_ki6l7"]
+[ext_resource type="PackedScene" uid="uid://cgxdagti164ga" path="res://3d models/Guns/ak_47.tscn" id="2_ufi2k"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o1wyu"]
 
@@ -11,6 +10,7 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_q7yn7")
+StartingWeaponScene = ExtResource("2_ufi2k")
 Sensitivity = 0.2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -25,8 +25,7 @@ current = true
 
 [node name="Marker3D" type="Marker3D" parent="Camera3D"]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, -0.0145316)
-script = ExtResource("2_ki6l7")
-
-[node name="ak47" parent="Camera3D/Marker3D" instance=ExtResource("2_dyn1a")]
 
 [node name="Hud" parent="." instance=ExtResource("2_1eun8")]
+
+[node name="Firerate" type="Timer" parent="."]

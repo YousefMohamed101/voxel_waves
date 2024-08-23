@@ -17,6 +17,4 @@ data = {
 [node name="Player" parent="." instance=ExtResource("2_guhtt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01215, 1.24373, 4.15753)
 
-[connection signal="Shoot" from="Player/Camera3D/Marker3D/ak47" to="." method="OnPlayerShoot"]
-
 [editable path="Player"]

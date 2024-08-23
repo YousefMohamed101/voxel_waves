@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://mldu8x500kl5"]
+[gd_scene load_steps=3 format=3 uid="uid://mldu8x500kl5"]
 
+[ext_resource type="Script" path="res://Scenes/GameLoading.cs" id="1_iw4cq"]
 [ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="2_ap4rg"]
 
 [node name="Splash Screen" type="ColorRect"]
@@ -9,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.960784, 0.509804, 0, 1)
+script = ExtResource("1_iw4cq")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

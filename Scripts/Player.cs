@@ -7,7 +7,7 @@ public partial class Player : CharacterBody3D
 	public float JumpVelocity;
 	public float W_Gravity = 9.8f;
 
-
+	[Export] private PackedScene StartingWeaponScene;
 	private Camera3D camera;
 	[Export] public float Sensitivity = 0.1f;
 	[Export] public float MaxPitch = 90.0f;
@@ -19,20 +19,57 @@ public partial class Player : CharacterBody3D
 	private float _pitch = 0.0f;
 	[Export] private float Run_Speed = 1.5f;
 	[Export] private float Weight = 1.5f;
+	private Weapon equippedWeapon;
+	private bool mouse_left_down = false;
+	private Timer OnFireRate;
 	public override void _Ready()
 	{
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
 		camera.Rotation = new Vector3(0, 0, 0);
+		OnFireRate = GetNode<Timer>("Firerate");
+		equippedWeapon = null;
+		if (StartingWeaponScene != null)
+		{
+			Weapon startingWeapon = StartingWeaponScene.Instantiate<Weapon>();
+			EquipWeapon(startingWeapon);
+		}
 	}
 
+	private void OnPlayerShoot(PackedScene bullet, Basis direction, Vector3 DirectionB, Vector3 location, float BulletSpeedE)
+	{
+		var spawnedBullet = bullet.Instantiate<RigidBody3D>();
+		spawnedBullet.Position = location;
+		spawnedBullet.Basis = direction;
+		spawnedBullet.LinearVelocity = DirectionB * BulletSpeedE;
+		GetTree().Root.AddChild(spawnedBullet);
 
+	}
+
+	public void EquipWeapon(Weapon weapon)
+	{
+		if (equippedWeapon != null)
+		{
+			equippedWeapon.PlayerShoot -= OnPlayerShoot;
+			equippedWeapon.QueueFree(); // Remove the old weapon
+		}
+
+		equippedWeapon = weapon;
+		GetNode<Marker3D>("Camera3D/Marker3D").AddChild(weapon);
+		equippedWeapon.PlayerShoot += OnPlayerShoot;
+		OnFireRate.WaitTime = equippedWeapon.FireRate;
+	}
 
 
 
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (mouse_left_down && OnFireRate.IsStopped() && equippedWeapon != null)
+		{
+			equippedWeapon.UseWeapon();
+			OnFireRate.Start();
+		}
 
 		Vector3 velocity = Velocity;
 		JumpVelocity = Mathf.Sqrt(2 * Strength * W_Gravity);
@@ -91,6 +128,22 @@ public partial class Player : CharacterBody3D
 
 			// Apply the rotation to the camera
 			camera.RotationDegrees = new Vector3(_pitch, _yaw, 0);
+		}
+		if (@event is InputEventMouseButton mouseButton)
+		{
+			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
+			{
+				mouse_left_down = true;
+
+
+
+			}
+			else
+			{
+
+
+				mouse_left_down = false;
+			}
 		}
 	}
 
