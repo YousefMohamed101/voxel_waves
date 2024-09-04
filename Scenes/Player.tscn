@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckxrdtywwtc2w"]
+[gd_scene load_steps=5 format=3 uid="uid://ckxrdtywwtc2w"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q7yn7"]
 [ext_resource type="PackedScene" uid="uid://oyhc6r7xknhm" path="res://Scenes/HUD.tscn" id="2_1eun8"]
-[ext_resource type="PackedScene" uid="uid://cgxdagti164ga" path="res://3d models/Guns/ak_47.tscn" id="2_ufi2k"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o1wyu"]
 
@@ -10,13 +9,17 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_q7yn7")
-StartingWeaponScene = ExtResource("2_ufi2k")
 Sensitivity = 0.2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_o1wyu")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_giit5")
+
+[node name="Playerbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Playerbox"]
 shape = SubResource("CapsuleShape3D_giit5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -27,5 +30,3 @@ current = true
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, -0.0145316)
 
 [node name="Hud" parent="." instance=ExtResource("2_1eun8")]
-
-[node name="Firerate" type="Timer" parent="."]

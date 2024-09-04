@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://78j58787y3cn"]
+[gd_scene load_steps=7 format=3 uid="uid://78j58787y3cn"]
 
 [ext_resource type="Script" path="res://Scenes/World.cs" id="1_h2eye"]
 [ext_resource type="MeshLibrary" uid="uid://cu2k2fwwgfcwk" path="res://terrain/EnvLibraries/Dirt_Map.meshlib" id="1_mxwym"]
 [ext_resource type="PackedScene" uid="uid://cnuv3ote8s7ms" path="res://terrain/Obj/House.tscn" id="2_vhxw8"]
 [ext_resource type="PackedScene" uid="uid://ckxrdtywwtc2w" path="res://Scenes/Player.tscn" id="3_6ww20"]
 [ext_resource type="MeshLibrary" uid="uid://cbwq0m2vfb3hm" path="res://terrain/EnvLibraries/Props.meshlib" id="4_qth5k"]
+[ext_resource type="PackedScene" uid="uid://dew2kduvst0v2" path="res://3d models/Guns/GLockGun.tscn" id="6_mct55"]
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20607, 0, 0)
@@ -35,7 +36,10 @@ metadata/_editor_floor_ = Vector3(0, -1, 0)
 [node name="Player" parent="." instance=ExtResource("3_6ww20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30054, 1.05049, 0)
 
-[node name="Firerate" parent="Player" index="4"]
-one_shot = true
+[node name="Playerbox" parent="Player" index="2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="GLockGun" parent="." instance=ExtResource("6_mct55")]
 
 [editable path="Player"]
