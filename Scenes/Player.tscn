@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckxrdtywwtc2w"]
+[gd_scene load_steps=4 format=3 uid="uid://ckxrdtywwtc2w"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q7yn7"]
-[ext_resource type="PackedScene" uid="uid://oyhc6r7xknhm" path="res://Scenes/HUD.tscn" id="2_1eun8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o1wyu"]
 
@@ -18,15 +17,61 @@ mesh = SubResource("CapsuleMesh_o1wyu")
 shape = SubResource("CapsuleShape3D_giit5")
 
 [node name="Playerbox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Playerbox"]
 shape = SubResource("CapsuleShape3D_giit5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.767948, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.274345, 0.767948, 0)
 current = true
 
 [node name="Marker3D" type="Marker3D" parent="Camera3D"]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, -0.0145316)
 
-[node name="Hud" parent="." instance=ExtResource("2_1eun8")]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Health" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 276.0
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Health"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+step = 0.0
+value = 100.0
+fill_mode = 1
+
+[node name="BoxContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="RichTextLabel" type="Label" parent="Control/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "0/0"

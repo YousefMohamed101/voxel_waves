@@ -1,15 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8tnvx0b75dk0"]
+[gd_scene load_steps=4 format=3 uid="uid://b8tnvx0b75dk0"]
 
 [ext_resource type="PackedScene" uid="uid://d2ty0c8mj07ri" path="res://3d models/Guns/glockblack_.fbx" id="1_kpjwh"]
 [ext_resource type="Script" path="res://3d models/Guns/Glockblack.cs" id="2_5hajp"]
-[ext_resource type="PackedScene" uid="uid://cl5l4hdxnpsts" path="res://3d models/BulletRigid.tscn" id="3_t6lwh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shsjm"]
 
 [node name="glockblack_" groups=["Weapon", "Weapons"] instance=ExtResource("1_kpjwh")]
 script = ExtResource("2_5hajp")
-BulletScene = ExtResource("3_t6lwh")
-BulletSpeed = 100.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(0.725978, 0, 0, 0, 0.423676, 0, 0, 0, 0.0998323, 0.606561, -0.0405575, 0)

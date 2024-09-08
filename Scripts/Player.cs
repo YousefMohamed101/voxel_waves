@@ -15,6 +15,7 @@ public partial class Player : CharacterBody3D
 	[Export] public float MaxPitch = 90.0f;
 	[Export] public float MinPitch = -90.0f;
 	[Export] public float Strength = 8.0f;
+	public int magazine = 0;
 
 	private Marker3D Equip;
 	private float _yaw = 0.0f;
@@ -25,10 +26,12 @@ public partial class Player : CharacterBody3D
 	private bool mouse_left_down = false;
 
 	public Marker3D marker;
+	Label hud;
 	private bool isWeaponEquipped = false;
 
 	public override void _Ready()
 	{
+		hud = GetNode<Label>("Control/BoxContainer/RichTextLabel");
 		marker = GetNode<Marker3D>("Camera3D/Marker3D");
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
@@ -38,7 +41,12 @@ public partial class Player : CharacterBody3D
 
 		// Instantiate the starting weapon correctly
 		Node3D startingWeapon = Ak47.Instantiate() as Node3D;
-		EquipWeapon(startingWeapon);
+		if (startingWeapon != null && startingWeapon is Weapon newWeapon)
+		{
+			magazine = 10; // Set the magazine size from the weapon
+			EquipWeapon(newWeapon); // Equip the weapon with the correct magazine size
+
+		}
 
 		Area3D playerBox = GetNode<Area3D>("Playerbox");
 		playerBox.BodyEntered += _on_playerbox_body_entered;
@@ -46,30 +54,58 @@ public partial class Player : CharacterBody3D
 
 	public void _on_playerbox_body_entered(Node3D body)
 	{
+		GD.Print(body.Name);
 		if (body is Weapon W)
 		{
+			// Instantiate and equip weapon based on the name
+			Node3D weaponInstance = null;
+
 			if (body.Name == "GLockGun")
 			{
-				var glockWeapon = Glock.Instantiate() as Node3D;
-				EquipWeapon(glockWeapon);
-				body.QueueFree();
+				weaponInstance = Glock.Instantiate() as Node3D;
+			}
+			else if (body.Name == "AK47")
+			{
+				weaponInstance = Ak47.Instantiate() as Node3D;
+			}
+
+			// Equip the weapon if instantiated successfully
+			if (weaponInstance != null && weaponInstance is Weapon newWeapon)
+			{
+				EquipWeapon(newWeapon); // Equip the weapon with the correct magazine size
+				body.QueueFree(); // Remove the old weapon
 			}
 		}
 	}
 
 
 
-	public void EquipWeapon(Node3D weapon)
+	public void EquipWeapon(Weapon weapon)
 	{
 		// Remove the currently equipped weapon, if any
 		if (marker.GetChildCount() > 0)
 		{
-			marker.GetChild(0).QueueFree(); // Free the old weapon from memory
+			marker.GetChild(0).QueueFree();
+			weapon.MagazineChange -= ONMagazineChange; // Free the old weapon from memory
 		}
+		weapon.MagazineChange += ONMagazineChange;
 
-		// Add the new weapon
+		// Add the new weapon to the marker
 		marker.AddChild(weapon);
+		equippedWeapon = weapon; // Update the equipped weapon reference
+
+
 	}
+
+	private void ONMagazineChange(int ClipCount, int magazineCount)
+	{
+
+		hud.Text = $"{magazineCount}/{ClipCount}";
+
+
+	}
+
+
 
 	public override void _PhysicsProcess(double delta)
 	{

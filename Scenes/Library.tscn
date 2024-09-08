@@ -1,13 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b56o5jiipwty"]
+[gd_scene load_steps=4 format=3 uid="uid://b56o5jiipwty"]
 
 [ext_resource type="ArrayMesh" uid="uid://dslji3j3c6c8y" path="res://terrain/Obj/CountrySide-2-GroundTile2.obj" id="1_uy5lb"]
 [ext_resource type="ArrayMesh" uid="uid://cn4ed4p57k3mp" path="res://terrain/Obj/CountrySide-3-GroundTile1.obj" id="2_dnvso"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y8w5c"]
-points = PackedVector3Array(4.44395, 0.414286, -1.74482, -5.07937, -0.379365, -5.07738, -5.07937, -0.379365, 5.07738, 5.07937, -0.379365, -5.07738, -3.96664, 0.414286, -3.64971, 5.07937, 0.255416, 5.07738, -3.96664, 0.414286, 4.60215, 5.07937, -0.379365, 5.07738, 5.07937, 0.255416, -5.07738, -5.07937, 0.255416, -5.07738, -5.07937, 0.255416, 5.07738, 3.80853, 0.414286, -4.76023, -3.17411, 0.414286, 4.76023, 4.60305, 0.414286, -2.22104, 3.17311, 0.414286, -4.76023, 4.12574, 0.414286, -4.28401, 4.44395, 0.414286, -3.01441, -3.49132, 0.414286, 4.76023)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p131l"]
-points = PackedVector3Array(2.22142, 0.414286, -0.158078, -5.07936, -0.379365, -5.07738, -5.07936, -0.379365, 5.07738, 5.07929, -0.379365, -5.07738, 5.07929, -0.379365, 5.07738, -5.07936, 0.255416, 5.07738, -5.07936, 0.255416, -5.07738, 5.07929, 0.255493, 5.07738, 5.07929, 0.255493, -5.07738, 1.74511, 0.414286, -1.42767, 2.85584, 0.414286, -0.634299, 1.2688, 0.414286, -0.31715, 1.587, 0.414286, 0, 2.22142, 0.414286, -1.42767, 1.2688, 0.414286, -0.634299, 2.85584, 0.414286, -0.475227, 2.69773, 0.414286, -0.951449, 1.90322, 0.414286, 0)
+[sub_resource type="BoxShape3D" id="BoxShape3D_p7lel"]
+size = Vector3(10, 0.5, 10)
 
 [node name="Library" type="Node3D"]
 
@@ -18,13 +15,13 @@ mesh = ExtResource("1_uy5lb")
 [node name="StaticBody3D" type="StaticBody3D" parent="CountrySide-2-groundTile2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CountrySide-2-groundTile2/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_y8w5c")
+shape = SubResource("BoxShape3D_p7lel")
 
 [node name="CountrySide-3-groundTile1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 5)
 mesh = ExtResource("2_dnvso")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CountrySide-3-groundTile1"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CountrySide-3-groundTile1/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_p131l")
+shape = SubResource("BoxShape3D_p7lel")

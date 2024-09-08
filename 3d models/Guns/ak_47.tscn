@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgxdagti164ga"]
+[gd_scene load_steps=16 format=3 uid="uid://cgxdagti164ga"]
 
 [ext_resource type="PackedScene" uid="uid://bfk1lu2enu4ml" path="res://3d models/Guns/ak47.fbx" id="1_csgl8"]
 [ext_resource type="Script" path="res://3d models/Guns/Ak47.cs" id="2_dweoj"]
@@ -120,10 +120,45 @@ _data = {
 "Shooting": SubResource("Animation_g2ptg")
 }
 
-[node name="ak47" instance=ExtResource("1_csgl8")]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m56ox"]
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_osuf4"]
+colors = PackedColorArray(0.968627, 0.752941, 0.298039, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1a04u"]
+gradient = SubResource("Gradient_osuf4")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o26ig"]
+transparency = 1
+blend_mode = 1
+albedo_texture = SubResource("GradientTexture2D_1a04u")
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("GradientTexture2D_1a04u")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_xxpgv"]
+material = SubResource("StandardMaterial3D_o26ig")
+size = Vector2(0.1, 0.1)
+
+[node name="ak47" node_paths=PackedStringArray("MBang", "MFlashP") instance=ExtResource("1_csgl8")]
 script = ExtResource("2_dweoj")
 BulletScene = ExtResource("3_pnisv")
 BulletSpeed = 50.0
+MBang = NodePath("MuzzleBang")
+MFlashP = NodePath("GPUParticles3D")
 
 [node name="Cube_001" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.25263, 0.532343, -0.633476, 0.00378507)
@@ -132,9 +167,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.25263, 0.532343, -0.633476, 0.
 libraries = {
 "": SubResource("AnimationLibrary_3ju63")
 }
+playback_default_blend_time = 0.05
 
 [node name="FiringPoint" type="Marker3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85045, -0.373502, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.83131, -0.391119, 0)
 
 [node name="RateOfFire" type="Timer" parent="." index="3"]
 process_callback = 0
@@ -148,3 +184,18 @@ one_shot = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584916, -0.327901, 0)
 stream = ExtResource("4_25r4m")
 bus = &"SE"
+
+[node name="MuzzleBang" type="OmniLight3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.84878, -0.392336, 0)
+visible = false
+light_color = Color(0.992157, 0.827451, 0.470588, 1)
+light_energy = 6.98
+omni_shadow_mode = 0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="7"]
+transform = Transform3D(0.132174, 0, 0, 0, 0.154103, 0, 0, 0, 0.124772, 2.8474, -0.39515, 0)
+emitting = false
+lifetime = 0.05
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_m56ox")
+draw_pass_1 = SubResource("QuadMesh_xxpgv")
