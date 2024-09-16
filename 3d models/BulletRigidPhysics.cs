@@ -6,14 +6,49 @@ public partial class BulletRigidPhysics : RigidBody3D
 
 	[Export]
 	private float LifeTime = 2.0f;
+	private float damage = 0;
 	private Timer Lifetime;
+	private bool damaged = false;
 	public override void _Ready()
 	{// Example radius of the bullet in meters
 		Lifetime = GetNode<Timer>("Timer");
 		Lifetime.WaitTime = LifeTime;
 		Lifetime.Start();
 		Lifetime.Timeout += () => QueueFree();
+		this.BodyEntered += OnEnemyDetect;
 	}
+	private void OnEnemyDetect(Node body)
+	{
+		var par = body.GetParent().GetParent().GetParent().GetParent();
+		var part = body.GetParent();
+
+		if (par is Zombie1)
+		{
+			QueueFree();
+			if (part.Name == "Head" && damaged == false)
+			{
+				damage = 10;
+				GD.Print("HeadShot");
+				par.Call("recieve_damage", damage);
+				damaged = true;
+
+			}
+			else if (part.Name != "Head" && damaged == false)
+			{
+				damage = 1;
+				GD.Print("Body");
+				par.Call("recieve_damage", damage);
+				damaged = true;
+			}
+			damaged = false;
+
+
+
+		}
+
+
+	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)

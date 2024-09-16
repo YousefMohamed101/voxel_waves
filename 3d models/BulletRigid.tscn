@@ -7,8 +7,12 @@
 
 [node name="BulletRigid" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
 mass = 0.008
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_1d8uc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -40,6 +40,7 @@ version_control/autoload_on_startup=true
 [global_group]
 
 Weapon="Guns for the game"
+Zombies=""
 
 [input]
 
@@ -87,6 +88,10 @@ Reloading={
 [internationalization]
 
 locale/translations=PackedStringArray("res://Localisation/VoxelWave_Translation_U.en.translation", "res://Localisation/VoxelWave_Translation_U.es.translation", "res://Localisation/VoxelWave_Translation_U.fr.translation")
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 

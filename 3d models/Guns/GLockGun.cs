@@ -48,6 +48,11 @@ public partial class GLockGun : Weapon
 			}
 		}
 	}
+	public void refill()
+	{
+		clips = 10;
+		EmitMagazineChange(clips, MagazineSize);
+	}
 	public override void _PhysicsProcess(double delta)
 	{
 		Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");

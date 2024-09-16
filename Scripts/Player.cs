@@ -54,17 +54,17 @@ public partial class Player : CharacterBody3D
 
 	public void _on_playerbox_body_entered(Node3D body)
 	{
-		GD.Print(body.Name);
-		if (body is Weapon W)
+
+		if (body is Weapon)
 		{
 			// Instantiate and equip weapon based on the name
 			Node3D weaponInstance = null;
 
-			if (body.Name == "GLockGun")
+			if (body is GLockGunPick)
 			{
 				weaponInstance = Glock.Instantiate() as Node3D;
 			}
-			else if (body.Name == "AK47")
+			else if (body is Ak47Pick)
 			{
 				weaponInstance = Ak47.Instantiate() as Node3D;
 			}
@@ -75,6 +75,18 @@ public partial class Player : CharacterBody3D
 				EquipWeapon(newWeapon); // Equip the weapon with the correct magazine size
 				body.QueueFree(); // Remove the old weapon
 			}
+		}
+		else if (body is Ammobox)
+		{
+			var equippedlife = marker.GetChild(0);
+
+
+			if (equippedlife.HasMethod("refill"))
+			{
+				GD.Print(body.Name);
+				equippedlife.Call("refill");
+			}
+
 		}
 	}
 
@@ -167,18 +179,5 @@ public partial class Player : CharacterBody3D
 
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is InputEventKey e && e.IsPressed() && e.Keycode == Key.Escape)
-		{
-			if (DisplayServer.MouseGetMode() == DisplayServer.MouseMode.Captured)
-			{
-				DisplayServer.MouseSetMode(DisplayServer.MouseMode.Visible);
-			}
-			else
-			{
-				DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
-			}
-		}
-	}
+
 }

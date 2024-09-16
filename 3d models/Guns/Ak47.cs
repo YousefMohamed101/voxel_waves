@@ -47,8 +47,14 @@ public partial class Ak47 : Weapon
 			}
 		}
 	}
+	public void refill()
+	{
+		clips = 10;
+		EmitMagazineChange(clips, MagazineSize);
+	}
 	public override void _PhysicsProcess(double delta)
 	{
+
 		Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");
 
 		if (mouse_left_down && Rateoffire.IsStopped() && Reloadtime.IsStopped() && MagazineSize != 0)
