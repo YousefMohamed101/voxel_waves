@@ -25,5 +25,5 @@ transform = Transform3D(-0.000275761, -0.039999, 6.03983e-09, -0.039999, 0.00027
 shape = SubResource("CapsuleShape3D_k452p")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 60.0
 one_shot = true

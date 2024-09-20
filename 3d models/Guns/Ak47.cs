@@ -4,7 +4,7 @@ using System;
 public partial class Ak47 : Weapon
 {
 	[Export] public PackedScene BulletScene;
-	[Export] public float BulletSpeed { get; set; } = 700.0f;
+	[Export] public float BulletSpeed { get; set; } = 10f;
 	[Export] public int MagazineSize { get; set; } = 30;
 	[Export] public int clips { get; set; } = 10;
 	[Export] public float FireRate { get; set; } = 0.05f; // Faster fire rate for automatic
@@ -20,6 +20,13 @@ public partial class Ak47 : Weapon
 	[Export] private float MFlash = 0.1f;
 	[Export] private OmniLight3D MBang;
 	[Export] private GpuParticles3D MFlashP;
+	[Export]
+	private TextureRect crosshair;
+
+	private RayCast3D _rayCast;
+	private Camera3D _camera;
+	private const float RayLength = 10f;
+
 	public override void _Ready()
 	{
 		FiringPoint = GetNode<Marker3D>("FiringPoint");
@@ -31,6 +38,21 @@ public partial class Ak47 : Weapon
 		Reloadtime.Stop();
 		EmitMagazineChange(clips, MagazineSize);
 		Walking = false;
+		crosshair = GetNode<TextureRect>("Control/CenterContainer/TextureRect");
+		_rayCast = GetNode<RayCast3D>("/root/World/Player/Camera3D/RayCast3D");
+		_camera = GetNode<Camera3D>("/root/World/Player/Camera3D");
+
+	}
+	public override void _Process(double delta)
+	{
+
+	}
+
+	private void LookAtPoint(Vector3 target)
+	{
+		var camera3D = GetNode<Camera3D>("Camera3D");
+		var from = camera3D.ProjectRayOrigin(GetViewport().GetMousePosition());
+		var to = from + camera3D.ProjectRayNormal(GetViewport().GetMousePosition()) * RayLength;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -52,15 +74,38 @@ public partial class Ak47 : Weapon
 		clips = 10;
 		EmitMagazineChange(clips, MagazineSize);
 	}
+
+
 	public override void _PhysicsProcess(double delta)
 	{
-
 		Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");
+
+		// Update raycast target to keep it aligned with camera direction
+
 
 		if (mouse_left_down && Rateoffire.IsStopped() && Reloadtime.IsStopped() && MagazineSize != 0)
 		{
-			OnPlayerShoot(BulletScene, FiringPoint.GlobalBasis, FiringPoint.GlobalBasis.X, FiringPoint.GlobalPosition, BulletSpeed);
+			_rayCast.ForceRaycastUpdate(); // Update raycast to get the latest hit information
 
+			Vector3 targetPoint;
+			Vector3 bulletDirection = -_camera.GlobalBasis.Z;
+
+			// Check if the ray hit something
+			if (_rayCast.IsColliding())
+			{
+				targetPoint = _rayCast.GetCollisionPoint();
+				bulletDirection = (targetPoint - FiringPoint.GlobalPosition).Normalized();
+			}
+			else
+			{
+
+				targetPoint = _rayCast.GlobalTransform.Origin + bulletDirection.Normalized() * RayLength;
+				bulletDirection = (targetPoint - FiringPoint.GlobalPosition).Normalized();
+			}
+
+
+			// Shoot the bullet
+			OnPlayerShoot(BulletScene, FiringPoint.GlobalBasis, bulletDirection, FiringPoint.GlobalPosition, BulletSpeed);
 			Gunshot.Play();
 			PlayAnimation("Shooting");
 			MagazineSize -= 1;
@@ -71,11 +116,11 @@ public partial class Ak47 : Weapon
 			}
 			Rateoffire.Start();
 		}
+
 		else if (Input.IsActionPressed("Reloading"))
 		{
 			MFlashP.Emitting = false;
 			MBang.Visible = false;
-
 
 			if (Reloadtime.IsStopped() && clips != 0)
 			{
@@ -92,7 +137,6 @@ public partial class Ak47 : Weapon
 			if (Walking)
 			{
 				PlayAnimation("Moving");
-
 			}
 			else
 			{
@@ -100,13 +144,17 @@ public partial class Ak47 : Weapon
 			}
 			MFlashP.Emitting = false;
 			MBang.Visible = false;
-
-
-
 		}
+
 	}
 
 
+	private void UpdateRaycastDirection()
+	{
+		// Set the raycast's direction to match the camera's forward direction
+		_rayCast.GlobalTransform = _camera.GlobalTransform;
+		_rayCast.TargetPosition = -_camera.GlobalTransform.Basis.Z * RayLength;
+	}
 
 	private void PlayAnimation(string animationName)
 	{
@@ -120,10 +168,14 @@ public partial class Ak47 : Weapon
 		var spawnedBullet = bulletScene.Instantiate<RigidBody3D>();
 		spawnedBullet.Position = location;
 		spawnedBullet.Basis = direction;
-		spawnedBullet.LinearVelocity = DirectionB * BulletSpeedE;
+		var ddd = DirectionB.Normalized();
+		spawnedBullet.LinearVelocity = ddd * BulletSpeedE;
 
 		MFlashP.Emitting = true;
 		MBang.Visible = true;
+		GD.Print("Bullet Direction: ", ddd);
+		GD.Print("Bullet Speed: ", spawnedBullet.LinearVelocity.Length());
+
 		GetTree().Root.AddChild(spawnedBullet);
 
 

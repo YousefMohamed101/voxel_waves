@@ -29,13 +29,14 @@ public partial class Player : CharacterBody3D
 	Label hud;
 	private bool isWeaponEquipped = false;
 
+
 	public override void _Ready()
 	{
 		hud = GetNode<Label>("Control/BoxContainer/RichTextLabel");
 		marker = GetNode<Marker3D>("Camera3D/Marker3D");
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
-		camera.Rotation = new Vector3(0, 0, 0);
+
 
 		equippedWeapon = null;
 
@@ -101,6 +102,8 @@ public partial class Player : CharacterBody3D
 			weapon.MagazineChange -= ONMagazineChange; // Free the old weapon from memory
 		}
 		weapon.MagazineChange += ONMagazineChange;
+
+
 
 		// Add the new weapon to the marker
 		marker.AddChild(weapon);

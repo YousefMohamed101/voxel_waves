@@ -5,7 +5,7 @@ public partial class BulletRigidPhysics : RigidBody3D
 {
 
 	[Export]
-	private float LifeTime = 2.0f;
+	private float LifeTime = 60f;
 	private float damage = 0;
 	private Timer Lifetime;
 	private bool damaged = false;
@@ -19,13 +19,14 @@ public partial class BulletRigidPhysics : RigidBody3D
 	}
 	private void OnEnemyDetect(Node body)
 	{
+
 		var par = body.GetParent().GetParent().GetParent().GetParent();
 		var part = body.GetParent();
 
 		if (par is Zombie1)
 		{
 			QueueFree();
-			if (part.Name == "Head" && damaged == false)
+			if (part.Name == "Head")
 			{
 				damage = 10;
 				GD.Print("HeadShot");
@@ -33,18 +34,17 @@ public partial class BulletRigidPhysics : RigidBody3D
 				damaged = true;
 
 			}
-			else if (part.Name != "Head" && damaged == false)
+			else if (part.Name != "Head")
 			{
 				damage = 1;
 				GD.Print("Body");
 				par.Call("recieve_damage", damage);
 				damaged = true;
 			}
-			damaged = false;
-
-
-
 		}
+
+
+
 
 
 	}

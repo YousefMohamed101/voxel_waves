@@ -92,6 +92,7 @@ locale/translations=PackedStringArray("res://Localisation/VoxelWave_Translation_
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+jolt_3d/limits/max_bodies=50000
 
 [rendering]
 
