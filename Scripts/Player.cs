@@ -28,16 +28,19 @@ public partial class Player : CharacterBody3D
 	public Marker3D marker;
 	Label hud;
 	private bool isWeaponEquipped = false;
-
+	private int health;
 
 	public override void _Ready()
 	{
+
+
+		health = 20;
 		hud = GetNode<Label>("Control/BoxContainer/RichTextLabel");
 		marker = GetNode<Marker3D>("Camera3D/Marker3D");
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
 
-
+		Area3D playerBox = GetNode<Area3D>("Playerbox");
 		equippedWeapon = null;
 
 		// Instantiate the starting weapon correctly
@@ -49,12 +52,13 @@ public partial class Player : CharacterBody3D
 
 		}
 
-		Area3D playerBox = GetNode<Area3D>("Playerbox");
+
 		playerBox.BodyEntered += _on_playerbox_body_entered;
 	}
 
 	public void _on_playerbox_body_entered(Node3D body)
 	{
+		GD.Print("body.Name");
 
 		if (body is Weapon)
 		{
@@ -91,6 +95,12 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
+	private void recieve_damage(int x)
+	{
+		health -= x;
+		GD.Print(health);
+
+	}
 
 
 	public void EquipWeapon(Weapon weapon)

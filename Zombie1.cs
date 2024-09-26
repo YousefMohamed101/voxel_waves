@@ -5,13 +5,6 @@ using System;
 
 public partial class Zombie1 : CharacterBody3D
 {
-	public enum States
-	{
-		idle,
-		Wander,
-		Chassing,
-		Attacking
-	}
 
 	private Skeleton3D skele;
 	[Export] private PackedScene dragdoll;
@@ -19,10 +12,12 @@ public partial class Zombie1 : CharacterBody3D
 	private int health = 10;
 	private AnimationPlayer Anim;
 
+
 	public override void _Ready()
 	{
 		skele = GetNode<Skeleton3D>("Armature/Skeleton3D");
 		Anim = GetNode<AnimationPlayer>("AnimationPlayer");
+
 
 
 	}
@@ -43,6 +38,7 @@ public partial class Zombie1 : CharacterBody3D
 		}
 	}
 
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -56,7 +52,7 @@ public partial class Zombie1 : CharacterBody3D
 
 
 		Velocity = velocity;
-		MoveAndCollide(Velocity * (float)delta);
+		MoveAndSlide();
 
 
 

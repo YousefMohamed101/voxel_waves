@@ -158,7 +158,7 @@ size = Vector2(0.1, 0.1)
 [node name="ak47" node_paths=PackedStringArray("MBang", "MFlashP") instance=ExtResource("1_csgl8")]
 script = ExtResource("2_dweoj")
 BulletScene = ExtResource("3_pnisv")
-BulletSpeed = 5.0
+BulletSpeed = 50.0
 MBang = NodePath("MuzzleBang")
 MFlashP = NodePath("GPUParticles3D")
 

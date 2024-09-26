@@ -4,11 +4,14 @@ using System;
 public partial class RigidE : Node3D
 {
 	private Skeleton3D skele;
-	// Called when the node enters the scene tree for the first time.
+	private Timer Delete;
 	public override void _Ready()
 	{
 		skele = GetNode<Skeleton3D>("Armature/Skeleton3D");
 		skele.PhysicalBonesStartSimulation();
+		Delete = GetNode<Timer>("Timer");
+		Delete.Timeout += () => QueueFree();
+
 
 	}
 

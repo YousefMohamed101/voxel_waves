@@ -29,7 +29,6 @@ public partial class BulletRigidPhysics : RigidBody3D
 			if (part.Name == "Head")
 			{
 				damage = 10;
-				GD.Print("HeadShot");
 				par.Call("recieve_damage", damage);
 				damaged = true;
 
@@ -37,7 +36,6 @@ public partial class BulletRigidPhysics : RigidBody3D
 			else if (part.Name != "Head")
 			{
 				damage = 1;
-				GD.Print("Body");
 				par.Call("recieve_damage", damage);
 				damaged = true;
 			}

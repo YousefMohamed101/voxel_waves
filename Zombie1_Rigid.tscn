@@ -613,3 +613,8 @@ external_skeleton = NodePath("../../Skeleton3D")
 mesh = ExtResource("1_8fmtd")
 skin = SubResource("Skin_58m4q")
 skeleton = NodePath("../Skeleton3D")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true

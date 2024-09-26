@@ -96,12 +96,7 @@ public partial class Ak47 : Weapon
 				targetPoint = _rayCast.GetCollisionPoint();
 				bulletDirection = (targetPoint - FiringPoint.GlobalPosition).Normalized();
 			}
-			else
-			{
 
-				targetPoint = _rayCast.GlobalTransform.Origin + bulletDirection.Normalized() * RayLength;
-				bulletDirection = (targetPoint - FiringPoint.GlobalPosition).Normalized();
-			}
 
 
 			// Shoot the bullet
@@ -173,8 +168,7 @@ public partial class Ak47 : Weapon
 
 		MFlashP.Emitting = true;
 		MBang.Visible = true;
-		GD.Print("Bullet Direction: ", ddd);
-		GD.Print("Bullet Speed: ", spawnedBullet.LinearVelocity.Length());
+
 
 		GetTree().Root.AddChild(spawnedBullet);
 

@@ -6,7 +6,9 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_giit5"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["MC"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_q7yn7")
 Sensitivity = 0.2
 
@@ -21,6 +23,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Playerbox"]
+transform = Transform3D(1.16664, 0, 0, 0, 1.23098, 0, 0, 0, 1.12128, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_giit5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -28,11 +31,12 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.274
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -300)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+target_position = Vector3(0, 0, -1000)
 collision_mask = 4
 
 [node name="Marker3D" type="Marker3D" parent="Camera3D"]
-transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, -0.0145316)
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, 0.142844)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
