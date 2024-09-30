@@ -29,12 +29,12 @@ public partial class Ak47 : Weapon
 
 	public override void _Ready()
 	{
-		FiringPoint = GetNode<Marker3D>("FiringPoint");
-		Rateoffire = GetNode<Timer>("RateOfFire");
+		FiringPoint = GetNode<Marker3D>("Cube_001/FiringPoint");
+		Rateoffire = GetNode<Timer>("Cube_001/RateOfFire");
 		Rateoffire.WaitTime = FireRate;
-		Gunshot = GetNode<AudioStreamPlayer3D>("Gunshot_Sound");
-		Anime = GetNode<AnimationPlayer>("AnimationPlayer");
-		Reloadtime = GetNode<Timer>("ReloadTime");
+		Gunshot = GetNode<AudioStreamPlayer3D>("Cube_001/Gunshot_Sound");
+		Anime = GetNode<AnimationPlayer>("Cube_001/AnimationPlayer");
+		Reloadtime = GetNode<Timer>("Cube_001/ReloadTime");
 		Reloadtime.Stop();
 		EmitMagazineChange(clips, MagazineSize);
 		Walking = false;
@@ -48,12 +48,6 @@ public partial class Ak47 : Weapon
 
 	}
 
-	private void LookAtPoint(Vector3 target)
-	{
-		var camera3D = GetNode<Camera3D>("Camera3D");
-		var from = camera3D.ProjectRayOrigin(GetViewport().GetMousePosition());
-		var to = from + camera3D.ProjectRayNormal(GetViewport().GetMousePosition()) * RayLength;
-	}
 
 	public override void _Input(InputEvent @event)
 	{
@@ -80,7 +74,6 @@ public partial class Ak47 : Weapon
 	{
 		Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");
 
-		// Update raycast target to keep it aligned with camera direction
 
 
 		if (mouse_left_down && Rateoffire.IsStopped() && Reloadtime.IsStopped() && MagazineSize != 0)
@@ -144,12 +137,6 @@ public partial class Ak47 : Weapon
 	}
 
 
-	private void UpdateRaycastDirection()
-	{
-		// Set the raycast's direction to match the camera's forward direction
-		_rayCast.GlobalTransform = _camera.GlobalTransform;
-		_rayCast.TargetPosition = -_camera.GlobalTransform.Basis.Z * RayLength;
-	}
 
 	private void PlayAnimation(string animationName)
 	{

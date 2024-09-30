@@ -20,17 +20,25 @@ public partial class GLockGun : Weapon
 	[Export] private float MFlash = 0.1f;
 	[Export] private OmniLight3D MBang;
 	[Export] private GpuParticles3D MFlashP;
+
+	[Export] private TextureRect crosshair;
+
+	private RayCast3D _rayCast;
+	private Camera3D _camera;
 	public override void _Ready()
 	{
-		FiringPoint = GetNode<Marker3D>("FiringPoint");
-		Rateoffire = GetNode<Timer>("RateOfFire");
+		FiringPoint = GetNode<Marker3D>("Cube_008/FiringPoint");
+		Rateoffire = GetNode<Timer>("Cube_008/RateOfFire");
 		Rateoffire.WaitTime = FireRate;
-		Gunshot = GetNode<AudioStreamPlayer3D>("Gunshot_Sound");
-		Anime = GetNode<AnimationPlayer>("AnimationPlayer");
-		Reloadtime = GetNode<Timer>("ReloadTime");
+		Gunshot = GetNode<AudioStreamPlayer3D>("Cube_008/Gunshot_Sound");
+		Anime = GetNode<AnimationPlayer>("Cube_008/AnimationPlayer");
+		Reloadtime = GetNode<Timer>("Cube_008/ReloadTime");
 		Reloadtime.Stop();
 		EmitMagazineChange(clips, MagazineSize);
 		Walking = false;
+		crosshair = GetNode<TextureRect>("Control/CenterContainer/TextureRect");
+		_rayCast = GetNode<RayCast3D>("/root/World/Player/Camera3D/RayCast3D");
+		_camera = GetNode<Camera3D>("/root/World/Player/Camera3D");
 
 	}
 
@@ -59,13 +67,26 @@ public partial class GLockGun : Weapon
 
 		if (mouse_left_down && Rateoffire.IsStopped() && Reloadtime.IsStopped() && MagazineSize != 0)
 		{
-			OnPlayerShoot(BulletScene, FiringPoint.GlobalBasis, FiringPoint.GlobalBasis.X, FiringPoint.GlobalPosition, BulletSpeed);
+			_rayCast.ForceRaycastUpdate(); // Update raycast to get the latest hit information
 
+			Vector3 targetPoint;
+			Vector3 bulletDirection = -_camera.GlobalBasis.Z;
+
+			// Check if the ray hit something
+			if (_rayCast.IsColliding())
+			{
+				targetPoint = _rayCast.GetCollisionPoint();
+				bulletDirection = (targetPoint - FiringPoint.GlobalPosition).Normalized();
+			}
+
+
+
+			// Shoot the bullet
+			OnPlayerShoot(BulletScene, FiringPoint.GlobalBasis, bulletDirection, FiringPoint.GlobalPosition, BulletSpeed);
 			Gunshot.Play();
 			PlayAnimation("shooting");
 			MagazineSize -= 1;
 			EmitMagazineChange(clips, MagazineSize);
-
 			if (MagazineSize == 0 || !Rateoffire.IsStopped())
 			{
 				mouse_left_down = false;

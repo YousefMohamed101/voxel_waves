@@ -44,7 +44,7 @@ public partial class Player : CharacterBody3D
 		equippedWeapon = null;
 
 		// Instantiate the starting weapon correctly
-		Node3D startingWeapon = Ak47.Instantiate() as Node3D;
+		Node3D startingWeapon = Glock.Instantiate() as Node3D;
 		if (startingWeapon != null && startingWeapon is Weapon newWeapon)
 		{
 			magazine = 10; // Set the magazine size from the weapon
