@@ -847,7 +847,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8h871"]
-size = Vector3(1.00964, 0.84845, 1)
+size = Vector3(1.00964, 1.12637, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hpdu2"]
 size = Vector3(1, 1.00586, 0.756348)
@@ -1033,7 +1033,7 @@ size = Vector3(0.991058, 1.09863, 4096.5)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fvy2l"]
 
 [node name="Z1A2" type="CharacterBody3D" groups=["Zombies", "Zombies1"]]
-collision_layer = 5
+collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_3edw6")
 dragdoll = ExtResource("2_p75o0")
@@ -1324,7 +1324,7 @@ body_offset = Transform3D(-1.78534, -7.58087e-07, -2.39813e-08, 0, 0.0564493, -1
 bone_name = "mixamorig_Hips"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/Hips/Physical Bone mixamorig_Hips"]
-transform = Transform3D(0.555003, 1.65775e-07, 0, 1.49012e-08, 0.0146755, 0.499023, 1.86265e-09, -0.562319, 0.0130238, -0.00897675, -0.0490634, -0.0321162)
+transform = Transform3D(0.555003, 1.02445e-07, 2.23517e-08, 4.47035e-08, 0.0146752, 0.499023, 1.67638e-08, -0.562319, 0.0130238, -0.00897673, -0.047024, -0.110257)
 shape = SubResource("BoxShape3D_8h871")
 
 [node name="Spine" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
@@ -1952,10 +1952,11 @@ mesh = ExtResource("1_hy5mc")
 skin = SubResource("Skin_ihvm6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5288, 0, 0, 0, 0.0999622, 0, 0, 0, 8.20012e-05, 0, 0.0951721, 0)
+transform = Transform3D(0.137691, 0, 0, 0, 0.0999622, 0, 0, 0, 2.64117e-05, 0, 0.0951721, 0)
 shape = SubResource("BoxShape3D_uxp3t")
 
 [node name="player_Detection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.806645, 0, 0, 0)
 collision_layer = 8
 collision_mask = 8
 

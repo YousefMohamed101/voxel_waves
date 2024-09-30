@@ -29,6 +29,7 @@ public partial class Player : CharacterBody3D
 	Label hud;
 	private bool isWeaponEquipped = false;
 	private int health;
+	private ProgressBar Healthbar;
 
 	public override void _Ready()
 	{
@@ -39,9 +40,10 @@ public partial class Player : CharacterBody3D
 		marker = GetNode<Marker3D>("Camera3D/Marker3D");
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
-
+		Healthbar = GetNode<ProgressBar>("Control/Health/ProgressBar");
 		Area3D playerBox = GetNode<Area3D>("Playerbox");
 		equippedWeapon = null;
+		Healthbar.MaxValue = health;
 
 		// Instantiate the starting weapon correctly
 		Node3D startingWeapon = Glock.Instantiate() as Node3D;
@@ -98,6 +100,7 @@ public partial class Player : CharacterBody3D
 	private void recieve_damage(int x)
 	{
 		health -= x;
+		Healthbar.Value = health;
 		GD.Print(health);
 
 	}

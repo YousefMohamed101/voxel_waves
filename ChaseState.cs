@@ -11,6 +11,7 @@ public partial class ChaseState : State
 	[Export] private Area3D Leg;
 	private Node3D targetPlayer;
 	public bool attacking;
+	public bool canattack;
 	private RandomNumberGenerator AttackChoice;
 	private int AttackChoiceD;
 	public override void Enter()
@@ -32,6 +33,7 @@ public partial class ChaseState : State
 		Leg.BodyEntered += applydamage;
 		AnimMan.AnimationFinished += OnAnimationFinished;
 		AnimMan.AnimationStarted += OnAnimationStarted;
+		canattack = true;
 
 
 	}
@@ -53,7 +55,10 @@ public partial class ChaseState : State
 				Vector3 Direction = Direction_Distance.Normalized();
 				Direction.Y = 0;
 				Direction = Direction.Normalized();
-				if (Direction_Distance.Length() > 3)
+				Direction_Distance.Y = 0;
+				float distanceok = Direction_Distance.Length();
+
+				if (distanceok > 1.5 && canattack == true)
 				{
 					Enemy.Velocity = Direction * speed;
 					Enemy.LookAt(Enemy.GlobalPosition - Direction, Vector3.Up);
@@ -62,9 +67,13 @@ public partial class ChaseState : State
 						AnimMan.Play("Running");
 					}
 				}
-				else
+				else if (distanceok <= 1.5)
 				{
 					AttackChoiceD = AttackChoice.RandiRange(0, 1);
+					if (canattack == true)
+					{
+						attacking = false;
+					}
 					if (AttackChoiceD == 0 && attacking == false)
 					{
 						AnimMan.Play("punching");
@@ -105,7 +114,7 @@ public partial class ChaseState : State
 	{
 
 
-		if (body.IsInGroup("MC"))
+		if (body.IsInGroup("MC") && attacking == true)
 		{
 			body.Call("recieve_damage", 1);
 			GD.Print("hit");
@@ -118,6 +127,7 @@ public partial class ChaseState : State
 		if (anim_name == "punching" || anim_name == "Kicking")
 		{
 			attacking = false;
+			canattack = true;
 		}
 	}
 	private void OnAnimationStarted(StringName anim_name)
@@ -126,6 +136,11 @@ public partial class ChaseState : State
 		if (anim_name == "punching" || anim_name == "Kicking")
 		{
 			attacking = true;
+			canattack = false;
+		}
+		if (anim_name == "Running")
+		{
+			canattack = true;
 		}
 	}
 

@@ -17,7 +17,7 @@ public partial class Ak47 : Weapon
 	private AudioStreamPlayer3D Gunshot;
 	private AnimationPlayer Anime;
 	private string currentAnimation = "IDLE";
-	[Export] private float MFlash = 0.1f;
+
 	[Export] private OmniLight3D MBang;
 	[Export] private GpuParticles3D MFlashP;
 	[Export]
@@ -79,7 +79,6 @@ public partial class Ak47 : Weapon
 		if (mouse_left_down && Rateoffire.IsStopped() && Reloadtime.IsStopped() && MagazineSize != 0)
 		{
 			_rayCast.ForceRaycastUpdate(); // Update raycast to get the latest hit information
-
 			Vector3 targetPoint;
 			Vector3 bulletDirection = -_camera.GlobalBasis.Z;
 
@@ -101,7 +100,9 @@ public partial class Ak47 : Weapon
 			if (MagazineSize == 0 || !Rateoffire.IsStopped())
 			{
 				mouse_left_down = false;
+
 			}
+			MBang.Visible = false;
 			Rateoffire.Start();
 		}
 
@@ -140,7 +141,7 @@ public partial class Ak47 : Weapon
 
 	private void PlayAnimation(string animationName)
 	{
-		if (currentAnimation == animationName) return; // Prevent re-triggering the same animation
+		if (currentAnimation == animationName) return;
 		Anime.Play(animationName);
 		currentAnimation = animationName;
 	}
@@ -158,6 +159,7 @@ public partial class Ak47 : Weapon
 
 
 		GetTree().Root.AddChild(spawnedBullet);
+
 
 
 	}

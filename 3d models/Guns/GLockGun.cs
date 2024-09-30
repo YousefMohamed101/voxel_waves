@@ -17,7 +17,7 @@ public partial class GLockGun : Weapon
 	private AnimationPlayer Anime;
 	private string currentAnimation = "IDLE";
 
-	[Export] private float MFlash = 0.1f;
+
 	[Export] private OmniLight3D MBang;
 	[Export] private GpuParticles3D MFlashP;
 
@@ -25,6 +25,7 @@ public partial class GLockGun : Weapon
 
 	private RayCast3D _rayCast;
 	private Camera3D _camera;
+	private bool shot = false;
 	public override void _Ready()
 	{
 		FiringPoint = GetNode<Marker3D>("Cube_008/FiringPoint");
@@ -39,6 +40,7 @@ public partial class GLockGun : Weapon
 		crosshair = GetNode<TextureRect>("Control/CenterContainer/TextureRect");
 		_rayCast = GetNode<RayCast3D>("/root/World/Player/Camera3D/RayCast3D");
 		_camera = GetNode<Camera3D>("/root/World/Player/Camera3D");
+
 
 	}
 
@@ -90,7 +92,9 @@ public partial class GLockGun : Weapon
 			if (MagazineSize == 0 || !Rateoffire.IsStopped())
 			{
 				mouse_left_down = false;
+
 			}
+			MBang.Visible = false;
 			Rateoffire.Start();
 		}
 		else if (Input.IsActionPressed("Reloading"))
@@ -146,6 +150,10 @@ public partial class GLockGun : Weapon
 		MFlashP.Emitting = true;
 		MBang.Visible = true;
 		GetTree().Root.AddChild(spawnedBullet);
+
+	}
+	private void OnAnimationFinished(StringName name)
+	{
 
 	}
 }
