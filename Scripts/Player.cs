@@ -26,14 +26,34 @@ public partial class Player : CharacterBody3D
 	private bool mouse_left_down = false;
 
 	public Marker3D marker;
+	[Export]
+	public RayCast3D Raycast;
+	private MeshInstance3D _debugLine;
 	Label hud;
 	private bool isWeaponEquipped = false;
 	private int health;
 	private ProgressBar Healthbar;
+	private OptionData _data;
 
 	public override void _Ready()
 	{
+		if (Raycast == null)
+		{
+			GD.PrintErr("RayCast3D node not assigned!");
+			return;
+		}
+		_debugLine = new MeshInstance3D();
+		AddChild(_debugLine);
 
+		// Create a new ImmediateMesh for dynamic drawing
+		var mesh = new ImmediateMesh();
+		_debugLine.Mesh = mesh;
+
+		// Create a red material for the line
+		var material = new StandardMaterial3D();
+		material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+		material.AlbedoColor = Colors.Red;
+		_debugLine.MaterialOverride = material;
 
 		health = 20;
 		hud = GetNode<Label>("Control/BoxContainer/RichTextLabel");
@@ -57,6 +77,25 @@ public partial class Player : CharacterBody3D
 
 		playerBox.BodyEntered += _on_playerbox_body_entered;
 	}
+	private void _LoadData(OptionData data)
+	{
+		_data = data;
+		camera.Fov = _data.FovSlide;
+		Sensitivity = _data.Sensitivity;
+
+
+	}
+	private void RuntimeLoad()
+	{
+		string fileName = "res://Resources/Options.tres";
+		if (ResourceLoader.Exists(fileName))
+		{
+
+			_LoadData(ResourceLoader.Load<OptionData>(fileName, null, ResourceLoader.CacheMode.Ignore));
+		}
+
+	}
+
 
 	public void _on_playerbox_body_entered(Node3D body)
 	{
@@ -155,7 +194,7 @@ public partial class Player : CharacterBody3D
 		Vector2 inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
 		Vector3 forward = camera.GlobalTransform.Basis.Z.Normalized();
 		Vector3 right = camera.GlobalTransform.Basis.X.Normalized();
-		Vector3 direction = (forward * inputDir.Y + right * inputDir.X).Normalized();
+		Vector3 direction = (camera.Transform.Basis * new Vector3(inputDir.Y, 0, -inputDir.X)).Normalized();
 		bool isRunning = Input.IsActionPressed("Run");
 
 		if (direction != Vector3.Zero)

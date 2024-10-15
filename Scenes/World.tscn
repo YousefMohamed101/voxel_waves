@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://78j58787y3cn"]
+[gd_scene load_steps=25 format=3 uid="uid://78j58787y3cn"]
 
 [ext_resource type="Script" path="res://Scenes/World.cs" id="1_h2eye"]
 [ext_resource type="Script" path="res://Scenes/Unpause.cs" id="2_e3rar"]
@@ -7,21 +7,48 @@
 [ext_resource type="PackedScene" uid="uid://ckxrdtywwtc2w" path="res://Scenes/Player.tscn" id="3_6ww20"]
 [ext_resource type="MeshLibrary" uid="uid://cbwq0m2vfb3hm" path="res://terrain/EnvLibraries/Props.meshlib" id="4_qth5k"]
 [ext_resource type="MeshLibrary" uid="uid://cir43tx8i61dx" path="res://terrain/EnvLibraries/Dirt improved.tres" id="5_fvmjd"]
+[ext_resource type="Script" path="res://Scenes/Unpause2.cs" id="5_i6t13"]
+[ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="6_7qdlm"]
+[ext_resource type="Texture2D" uid="uid://bqph0gs6mgtfq" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a3.png" id="7_a0y38"]
+[ext_resource type="Texture2D" uid="uid://m4uidkkq4cx0" path="res://UI/Buttons/Tick.png" id="8_1bmv1"]
+[ext_resource type="Texture2D" uid="uid://bpxl1hxchwk1g" path="res://BG/AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="8_n57px"]
 [ext_resource type="PackedScene" uid="uid://dxvdja084t4f" path="res://Zombie1.tscn" id="9_hx3ox"]
+[ext_resource type="Texture2D" uid="uid://co3i0t78lqekw" path="res://UI/Buttons/Cross.png" id="9_o7iry"]
+[ext_resource type="Texture2D" uid="uid://l5aw0kqloyut" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a2.png" id="10_bx5gi"]
 [ext_resource type="Script" path="res://Scenes/EnemySpawner.cs" id="10_ggg4d"]
+[ext_resource type="Texture2D" uid="uid://bg0usoip1rmuw" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a1.png" id="11_erqc0"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_02wib"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jj706"]
+texture = ExtResource("7_a0y38")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dikl1"]
+texture = ExtResource("10_bx5gi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdnj1"]
+texture = ExtResource("11_erqc0")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ofd8h"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ijfl3"]
+panorama = ExtResource("8_n57px")
 
 [sub_resource type="Sky" id="Sky_0g5hw"]
-sky_material = SubResource("ProceduralSkyMaterial_02wib")
+sky_material = SubResource("PanoramaSkyMaterial_ijfl3")
 
 [sub_resource type="Environment" id="Environment_vyf55"]
 background_mode = 2
 sky = SubResource("Sky_0g5hw")
-tonemap_mode = 2
-glow_enabled = true
+tonemap_mode = 1
+ssr_max_steps = 100
+ssr_fade_out = 1.86607
+ssr_depth_tolerance = 68.71
+ssao_radius = 4.2
+ssao_intensity = 10.49
+ssao_power = 0.1875
+ssao_detail = 5.0
+ssao_horizon = 0.28
+sdfgi_cascades = 1
+sdfgi_max_distance = 25.6
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20607, 0, 0)
@@ -45,9 +72,200 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
-[node name="Unpause" type="Node" parent="."]
+[node name="Unpause" type="CanvasLayer" parent="."]
 process_mode = 2
+script = ExtResource("5_i6t13")
+
+[node name="ColorRect" type="ColorRect" parent="Unpause"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.639216)
+
+[node name="CenterContainer" type="CenterContainer" parent="Unpause"]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -320.0
+offset_right = 296.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_e3rar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Unpause/CenterContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Unpause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Resolution" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_jj706")
+alignment = 1
+selected = 0
+allow_reselect = true
+item_count = 7
+popup/item_0/text = "1280x720"
+popup/item_0/id = 0
+popup/item_1/text = "1280x1024"
+popup/item_1/id = 1
+popup/item_2/text = "1366x768"
+popup/item_2/id = 2
+popup/item_3/text = "1536x864"
+popup/item_3/id = 3
+popup/item_4/text = "1600x900"
+popup/item_4/id = 4
+popup/item_5/text = "1920x1080"
+popup/item_5/id = 5
+popup/item_6/text = "2540x1440"
+popup/item_6/id = 6
+
+[node name="Fullscreen" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "FullScreen"
+
+[node name="CheckButton" type="CheckButton" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 4.65
+theme_override_icons/checked = ExtResource("8_1bmv1")
+theme_override_icons/unchecked = ExtResource("9_o7iry")
+alignment = 1
+icon_alignment = 1
+
+[node name="MasterVolume" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Master Volume"
+
+[node name="Master" type="HSlider" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+
+[node name="Background music" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Background music"
+
+[node name="BGM" type="HSlider" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+
+[node name="Sound Effect" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Sound effect"
+
+[node name="Effects" type="HSlider" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+
+[node name="Fov" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Fov"
+
+[node name="Fov2" type="HSlider" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 30.0
+max_value = 180.0
+value = 180.0
+
+[node name="Sensitivity" type="Label" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+text = "Sensitivity"
+
+[node name="Sense" type="HSlider" parent="Unpause/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+value = 1.0
+
+[node name="Resume" type="Button" parent="Unpause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
+text = "Resume"
+
+[node name="Back_to_main_menu" type="Button" parent="Unpause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
+text = "Back to main Menu"
+
+[node name="Quit_Game" type="Button" parent="Unpause/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
+text = "Quit Game"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Unpause"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Unpause/CenterContainer2"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+texture = SubResource("CanvasTexture_ofd8h")
 
 [node name="ItemSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.11578, 0)
@@ -73,8 +291,14 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_6ww20")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30028, 2.09304, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.413536, 2.09304, 0)
 collision_layer = 8
+
+[node name="RayCast3D" parent="Player/Camera3D" index="0"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+target_position = Vector3(0, 0, -9999)
 
 [node name="Z1A2" parent="." instance=ExtResource("9_hx3ox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20607, 0, -10)
+
+[editable path="Player"]

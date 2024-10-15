@@ -7,11 +7,12 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_giit5"]
 
-[node name="Player" type="CharacterBody3D" groups=["MC"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Raycast") groups=["MC"]]
 collision_layer = 9
 collision_mask = 9
 script = ExtResource("1_q7yn7")
 Sensitivity = 0.2
+Raycast = NodePath("Camera3D/RayCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_o1wyu")
@@ -32,6 +33,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.274
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 target_position = Vector3(0, 0, -1000)
 collision_mask = 4
 

@@ -38,7 +38,7 @@ public partial class Ak47 : Weapon
 		Reloadtime.Stop();
 		EmitMagazineChange(clips, MagazineSize);
 		Walking = false;
-		crosshair = GetNode<TextureRect>("Control/CenterContainer/TextureRect");
+
 		_rayCast = GetNode<RayCast3D>("/root/World/Player/Camera3D/RayCast3D");
 		_camera = GetNode<Camera3D>("/root/World/Player/Camera3D");
 

@@ -6,6 +6,7 @@ public partial class MainMenu : Node
 	private GameMusicHandler DJ;
 	public override void _Ready()
 	{
+		GetTree().Paused = false;
 		GetNode<Button>("Play").Pressed += () => GetNode<SceneTransition>("/root/SceneTransitions").ChangeScene("GameLoading.tscn");
 		GetNode<Button>("Setting").Pressed += () => GetNode<SceneTransition>("/root/SceneTransitions").ChangeScene("Settings.tscn");
 		GetNode<Button>("Quit").Pressed += () => GetTree().Quit();

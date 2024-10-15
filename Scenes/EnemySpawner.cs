@@ -20,12 +20,15 @@ public partial class EnemySpawner : Node3D
 	public int NumEnemiesToSpawn { get; set; } = 5;
 
 	private RandomNumberGenerator _rng = new RandomNumberGenerator();
+	private Random cellR = new Random();
+	private GridMap WorldMap;
 	private Timer EnSpawn;
 	private int waveno = 5;
 
 	public override void _Ready()
 	{
 		EnSpawn = GetNode<Timer>("EnemySpawnTime");
+		WorldMap = GetNode<GridMap>("/root/World/Land");
 		WaveSpawn();
 		EnSpawn.Timeout += WaveSpawn;
 
@@ -40,6 +43,7 @@ public partial class EnemySpawner : Node3D
 
 	public void SpawnEnemies(int x)
 	{
+		var cells = WorldMap.GetUsedCells();
 		NumEnemiesToSpawn = x;
 		int totalWeight = 0;
 		foreach (var item in _items)
@@ -49,8 +53,11 @@ public partial class EnemySpawner : Node3D
 
 		for (int i = 0; i < NumEnemiesToSpawn; i++)
 		{
+			if (cells.Count == 0)
+				break;
 			float randomWeight = _rng.RandfRange(0, totalWeight);
 			PackedScene selectedScene = null;
+			int randomcell = cellR.Next(cells.Count);
 
 			foreach (var item in _items)
 			{
@@ -64,15 +71,13 @@ public partial class EnemySpawner : Node3D
 
 			if (selectedScene != null)
 			{
+				Vector3I cellPos = cells[randomcell];
+				Vector3 worldPos = WorldMap.MapToLocal(cellPos);
 				Node3D instance = selectedScene.Instantiate<Node3D>();
 				AddChild(instance);
 
 				// Set random position within spawn area
-				Vector3 randomPosition = new Vector3(
-					_rng.RandfRange(-SpawnAreaSize.X / 2, SpawnAreaSize.X / 2),
-					SpawnAreaSize.Y,
-					_rng.RandfRange(-SpawnAreaSize.Z / 2, SpawnAreaSize.Z / 2)
-				);
+				Vector3 randomPosition = worldPos;
 				instance.GlobalTransform = new Transform3D(Basis.Identity, randomPosition);
 			}
 		}

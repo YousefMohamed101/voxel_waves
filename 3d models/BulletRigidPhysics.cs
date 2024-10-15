@@ -25,12 +25,13 @@ public partial class BulletRigidPhysics : RigidBody3D
 
 		if (par is Zombie1)
 		{
-			QueueFree();
+
 			if (part.Name == "Head")
 			{
 				damage = 10;
 				par.Call("recieve_damage", damage);
 				damaged = true;
+				QueueFree();
 
 			}
 			else if (part.Name != "Head")
@@ -38,6 +39,7 @@ public partial class BulletRigidPhysics : RigidBody3D
 				damage = 1;
 				par.Call("recieve_damage", damage);
 				damaged = true;
+				QueueFree();
 			}
 		}
 

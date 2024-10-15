@@ -37,7 +37,7 @@ public partial class GLockGun : Weapon
 		Reloadtime.Stop();
 		EmitMagazineChange(clips, MagazineSize);
 		Walking = false;
-		crosshair = GetNode<TextureRect>("Control/CenterContainer/TextureRect");
+
 		_rayCast = GetNode<RayCast3D>("/root/World/Player/Camera3D/RayCast3D");
 		_camera = GetNode<Camera3D>("/root/World/Player/Camera3D");
 
@@ -152,8 +152,5 @@ public partial class GLockGun : Weapon
 		GetTree().Root.AddChild(spawnedBullet);
 
 	}
-	private void OnAnimationFinished(StringName name)
-	{
 
-	}
 }

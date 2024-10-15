@@ -1,22 +1,19 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgxdagti164ga"]
+[gd_scene load_steps=16 format=3 uid="uid://cgxdagti164ga"]
 
 [ext_resource type="PackedScene" uid="uid://bfk1lu2enu4ml" path="res://3d models/Guns/ak47.fbx" id="1_csgl8"]
 [ext_resource type="Script" path="res://3d models/Guns/Ak47.cs" id="2_dweoj"]
 [ext_resource type="PackedScene" uid="uid://cl5l4hdxnpsts" path="res://3d models/BulletRigid.tscn" id="3_pnisv"]
 [ext_resource type="AudioStream" uid="uid://bvg5po4an8fjo" path="res://Sound_Effects/ak-47-firing-8760.wav" id="4_25r4m"]
 
-[sub_resource type="Animation" id="Animation_1o1h7"]
-resource_name = "Moving"
-length = 0.5
-loop_mode = 2
-step = 0.25
+[sub_resource type="Animation" id="Animation_hq163"]
+length = 0.001
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Cube_001")
 tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.5, 0.25, 1, 0, 0, 0, 0.5, 1, 0, 0, -0.5)
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_i8qsb"]
 resource_name = "Reload"
@@ -49,6 +46,19 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.05, 1, -0.243785, 0, 0)
 
+[sub_resource type="Animation" id="Animation_1o1h7"]
+resource_name = "Moving"
+length = 0.5
+loop_mode = 2
+step = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.5, 0.25, 1, 0, 0, 0, 0.5, 1, 0, 0, -0.5)
+
 [sub_resource type="Animation" id="Animation_o1ym5"]
 resource_name = "IDLE"
 step = 0.25
@@ -60,23 +70,13 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 0, 0, 0)
 
-[sub_resource type="Animation" id="Animation_hq163"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cube_001")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ju63"]
 _data = {
-"IDLE": SubResource("Animation_o1ym5"),
-"Moving": SubResource("Animation_1o1h7"),
-"RESET": SubResource("Animation_hq163"),
-"Reload": SubResource("Animation_i8qsb"),
-"Shooting": SubResource("Animation_g2ptg")
+&"RESET": SubResource("Animation_hq163"),
+&"Reload": SubResource("Animation_i8qsb"),
+&"Shooting": SubResource("Animation_g2ptg"),
+&"IDLE": SubResource("Animation_o1ym5"),
+&"Moving": SubResource("Animation_1o1h7")
 }
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m56ox"]
@@ -112,8 +112,6 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_o26ig")
 size = Vector2(0.1, 0.1)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_4d8yn"]
-
 [node name="ak47" node_paths=PackedStringArray("MBang", "MFlashP") instance=ExtResource("1_csgl8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.14132, -0.314, -0.241)
 script = ExtResource("2_dweoj")
@@ -128,7 +126,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.25263, 0, 0, 0)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cube_001" index="2"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_3ju63")
+&"": SubResource("AnimationLibrary_3ju63")
 }
 playback_default_blend_time = 0.05
 
@@ -163,32 +161,3 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_m56ox")
 draw_pass_1 = SubResource("QuadMesh_xxpgv")
-
-[node name="Control" type="Control" parent="." index="1"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="CenterContainer" type="CenterContainer" parent="Control" index="0"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/CenterContainer" index="0"]
-custom_minimum_size = Vector2(5, 5)
-layout_mode = 2
-texture = SubResource("CanvasTexture_4d8yn")
