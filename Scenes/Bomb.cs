@@ -30,11 +30,12 @@ public partial class Bomb : RigidBody3D
                 var space = GetWorld3D().DirectSpaceState;
                 var collision = PhysicsRayQueryParameters3D.Create(GlobalTransform.Origin, body.GlobalTransform.Origin, CollisionMask, new Godot.Collections.Array<Rid> { GetRid() });
                 var result = space.IntersectRay(collision);
-                if (body.HasMethod("health")) // Ensure the body has a health property
+                if (body.HasMethod("recieve_damage")) // Ensure the body has a health property
                 {
-                    body.Set("health", (int)body.Get("health") - Damage);
+                    body.Call("recieve_damage", Damage);
                 }
             }
         }
+        QueueFree();
     }
 }
