@@ -10,13 +10,14 @@ public partial class Player : CharacterBody3D
 	// Correctly point to the .tscn files for your weapons
 	private PackedScene Ak47 = GD.Load<PackedScene>("res://3d models/Guns/ak_47.tscn");
 	private PackedScene Glock = GD.Load<PackedScene>("res://3d models/Guns/GLockGun.tscn");
+	private Weapon[] weaponInstances = new Weapon[2];
 	private Camera3D camera;
 	[Export] public float Sensitivity = 0.1f;
 	[Export] public float MaxPitch = 90.0f;
 	[Export] public float MinPitch = -90.0f;
 	[Export] public float Strength = 8.0f;
 	public int magazine = 0;
-
+	private int currentWeaponIndex = 0;
 	private Marker3D Equip;
 	private float _yaw = 0.0f;
 	private float _pitch = 0.0f;
@@ -28,12 +29,13 @@ public partial class Player : CharacterBody3D
 	public Marker3D marker;
 	[Export]
 	public RayCast3D Raycast;
-	private MeshInstance3D _debugLine;
+
 	Label hud;
 	private bool isWeaponEquipped = false;
 	private int health;
 	private ProgressBar Healthbar;
 	private OptionData _data;
+
 
 	public override void _Ready()
 	{
@@ -42,18 +44,7 @@ public partial class Player : CharacterBody3D
 			GD.PrintErr("RayCast3D node not assigned!");
 			return;
 		}
-		_debugLine = new MeshInstance3D();
-		AddChild(_debugLine);
 
-		// Create a new ImmediateMesh for dynamic drawing
-		var mesh = new ImmediateMesh();
-		_debugLine.Mesh = mesh;
-
-		// Create a red material for the line
-		var material = new StandardMaterial3D();
-		material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
-		material.AlbedoColor = Colors.Red;
-		_debugLine.MaterialOverride = material;
 
 		health = 20;
 		hud = GetNode<Label>("Control/BoxContainer/RichTextLabel");
@@ -66,13 +57,11 @@ public partial class Player : CharacterBody3D
 		Healthbar.MaxValue = health;
 
 		// Instantiate the starting weapon correctly
-		Node3D startingWeapon = Glock.Instantiate() as Node3D;
-		if (startingWeapon != null && startingWeapon is Weapon newWeapon)
-		{
-			magazine = 10; // Set the magazine size from the weapon
-			EquipWeapon(newWeapon); // Equip the weapon with the correct magazine size
+		AddToInventory(Glock, 0);
+		AddToInventory(Ak47, 1);
 
-		}
+		EquipWeapon(0); // Equip first weapon by default
+
 
 
 		playerBox.BodyEntered += _on_playerbox_body_entered;
@@ -95,6 +84,23 @@ public partial class Player : CharacterBody3D
 		}
 
 	}
+	private void InitializeWeapons()
+	{
+		// Create instances of weapons and store them
+		weaponInstances[0] = Glock.Instantiate<Weapon>();
+		weaponInstances[1] = Ak47.Instantiate<Weapon>();
+
+		// Initialize each weapon
+		foreach (var weapon in weaponInstances)
+		{
+			if (weapon != null)
+			{
+				weapon.MagazineChange += ONMagazineChange;
+				// Keep the weapon out of the scene tree until equipped
+				weapon.Owner?.RemoveChild(weapon);
+			}
+		}
+	}
 
 
 	public void _on_playerbox_body_entered(Node3D body)
@@ -115,12 +121,7 @@ public partial class Player : CharacterBody3D
 				weaponInstance = Ak47.Instantiate() as Node3D;
 			}
 
-			// Equip the weapon if instantiated successfully
-			if (weaponInstance != null && weaponInstance is Weapon newWeapon)
-			{
-				EquipWeapon(newWeapon); // Equip the weapon with the correct magazine size
-				body.QueueFree(); // Remove the old weapon
-			}
+
 		}
 		else if (body is Ammobox)
 		{
@@ -145,24 +146,73 @@ public partial class Player : CharacterBody3D
 	}
 
 
-	public void EquipWeapon(Weapon weapon)
+	public void EquipWeapon(int weaponIndex)
 	{
-		// Remove the currently equipped weapon, if any
+		if (weaponIndex < 0 || weaponIndex >= weaponInstances.Length || weaponInstances[weaponIndex] == null)
+		{
+			GD.PrintErr("Invalid weapon index or weapon not available!");
+			return;
+		}
+		Weapon weaponToEquip = weaponInstances[weaponIndex];
+		// Remove currently equipped weapon from marker if any
 		if (marker.GetChildCount() > 0)
 		{
-			marker.GetChild(0).QueueFree();
-			weapon.MagazineChange -= ONMagazineChange; // Free the old weapon from memory
+			var currentWeapon = marker.GetChild(0) as Weapon;
+			if (currentWeapon != null)
+			{
+				marker.RemoveChild(currentWeapon);
+
+			}
 		}
-		weapon.MagazineChange += ONMagazineChange;
 
+		// Equip the stored weapon instance
 
+		marker.AddChild(weaponToEquip);
+		currentWeaponIndex = weaponIndex;
+		if (weaponToEquip is Ak47 g47)
+		{
+			weaponToEquip.MagazineChange += ONMagazineChange;
+			weaponToEquip.EmitMagazineChange(g47.clips, g47.MagazineSize);
+		}
+		else if (weaponToEquip is GLockGun gl)
+		{
+			weaponToEquip.MagazineChange += ONMagazineChange;
+			weaponToEquip.EmitMagazineChange(gl.clips, gl.MagazineSize);
+		}
 
-		// Add the new weapon to the marker
-		marker.AddChild(weapon);
-		equippedWeapon = weapon; // Update the equipped weapon reference
 
 
 	}
+
+	public void AddToInventory(PackedScene weaponScene, int slot)
+	{
+		if (slot >= 0 && slot < weaponInstances.Length)
+		{
+			// Clean up existing weapon in that slot if any
+			if (weaponInstances[slot] != null)
+			{
+				weaponInstances[slot].QueueFree();
+			}
+
+			// Create new weapon instance
+			var newWeapon = weaponScene.Instantiate<Weapon>();
+			if (newWeapon != null)
+			{
+				newWeapon.MagazineChange += ONMagazineChange;
+				weaponInstances[slot] = newWeapon;
+			}
+		}
+	}
+
+	public void SwitchWeapons(int weaponIndex)
+	{
+		if (weaponIndex != currentWeaponIndex && weaponInstances[weaponIndex] != null)
+		{
+			EquipWeapon(weaponIndex);
+		}
+	}
+
+
 
 	private void ONMagazineChange(int ClipCount, int magazineCount)
 	{
@@ -180,6 +230,15 @@ public partial class Player : CharacterBody3D
 
 		Vector3 velocity = Velocity;
 		JumpVelocity = Mathf.Sqrt(2 * Strength * W_Gravity);
+		if (Input.IsActionPressed("slot_1"))
+		{
+			SwitchWeapons(0);
+		}
+		else if (Input.IsActionPressed("slot_2"))
+		{
+			SwitchWeapons(1);
+		}
+
 
 		if (!IsOnFloor())
 		{
@@ -216,6 +275,7 @@ public partial class Player : CharacterBody3D
 		}
 
 		Velocity = velocity;
+
 		MoveAndSlide();
 	}
 
@@ -230,6 +290,7 @@ public partial class Player : CharacterBody3D
 
 			camera.RotationDegrees = new Vector3(_pitch, _yaw, 0);
 		}
+
 
 
 	}

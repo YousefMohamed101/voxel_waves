@@ -11,6 +11,10 @@ public partial class World : Node3D
 	private ColorRect MenuShade;
 	private GameDAta _gdata;
 	private int score;
+	private Label lableScore;
+	private World world;
+	[Signal]
+	public delegate void ScoreChangedEventHandler(int newScore);
 
 	private void _LoadData(GameDAta data)
 	{
@@ -53,9 +57,12 @@ public partial class World : Node3D
 		DJ = GetNode<GameMusicHandler>("/root/GameMusicHandler");
 		InGameMenu = GetNode<CenterContainer>("Unpause/CenterContainer");
 		MenuShade = GetNode<ColorRect>("Unpause/ColorRect");
-
+		lableScore = GetNode<Label>("Unpause/Score");
+		score = 0;
+		scoreupdate(score);
 		MenuShade.Visible = false;
 		InGameMenu.Visible = false;
+
 
 		var audioStream = (AudioStream)GD.Load("res://Music/BG/Mission.mp3");
 		if (DJ.Player.Stream != audioStream)
@@ -93,8 +100,15 @@ public partial class World : Node3D
 	}
 
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void scoreupdate(int x)
 	{
+		score += x;
+		lableScore.Text = $"{score}";
+		_gdata.Score = score;
+		SaveData();
+	}
+	public override void _PhysicsProcess(double delta)
+	{
+
 	}
 }

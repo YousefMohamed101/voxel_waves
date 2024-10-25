@@ -20,11 +20,12 @@ public partial class BulletRigidPhysics : RigidBody3D
 	private void OnEnemyDetect(Node body)
 	{
 
-		var par = body.GetParent().GetParent().GetParent().GetParent();
-		var part = body.GetParent();
 
-		if (par is Zombie1)
+
+		if (body.IsInGroup("Zombies"))
 		{
+			var par = body.GetParent().GetParent().GetParent().GetParent();
+			var part = body.GetParent();
 
 			if (part.Name == "Head")
 			{

@@ -8,12 +8,13 @@ public partial class Weapon : Node3D
 	[Export] public int Damage { get; set; } = 10;
 	[Export] public int MagazineClip { get; set; } = 20;
 
+
 	[Signal]
 	public delegate void MagazineChangeEventHandler(int clipCount, int magazineCount);
 
 
 
-	protected void EmitMagazineChange(int clipCount, int magazineCount)
+	public void EmitMagazineChange(int clipCount, int magazineCount)
 	{
 		EmitSignal(nameof(MagazineChange), clipCount, magazineCount);
 	}

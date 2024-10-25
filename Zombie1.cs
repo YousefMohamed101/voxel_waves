@@ -12,6 +12,7 @@ public partial class Zombie1 : CharacterBody3D
 	private int health = 10;
 	private AnimationPlayer Anim;
 	private GameDAta _gdata;
+	private World world;
 	private int score;
 
 	private void _LoadData(GameDAta data)
@@ -51,6 +52,7 @@ public partial class Zombie1 : CharacterBody3D
 	{
 		skele = GetNode<Skeleton3D>("Armature/Skeleton3D");
 		Anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		world = GetNode<World>("/root/World");
 
 
 
@@ -61,13 +63,13 @@ public partial class Zombie1 : CharacterBody3D
 		GD.Print(health);
 		if (health <= 0)
 		{
-			RuntimeLoad();
-			_gdata.Score += 5;
-			var Rag = dragdoll.Instantiate<Node3D>();
+
+			world.scoreupdate(5);
+			Node3D Rag = dragdoll.Instantiate<Node3D>();
 			Rag.Position = this.GlobalPosition;
 			QueueFree();
 			GetTree().Root.AddChild(Rag);
-			SaveData();
+
 		}
 	}
 

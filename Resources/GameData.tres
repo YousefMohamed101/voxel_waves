@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="GameDAta" load_steps=2 format=3 uid="uid://eenwlvklq6kv"]
+[gd_resource type="Resource" script_class="GameDAta" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://Scripts/GameDAta.cs" id="1_4na34"]
 
 [resource]
 script = ExtResource("1_4na34")
-Highscore = 0
-Score = 0
+Highscore = 20
+Score = 20

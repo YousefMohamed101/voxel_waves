@@ -16,6 +16,7 @@ public partial class Unpause : CenterContainer
 	private CheckButton Fullcheck;
 	private OptionButton Res;
 	private OptionData _data = ResourceLoader.Load<OptionData>("res://Resources/Options.tres", null, ResourceLoader.CacheMode.Ignore);
+	private GameDAta _Gdata;
 	private int intcheck;
 	private int windowMode;
 	private Player Charplayer;
@@ -57,11 +58,15 @@ public partial class Unpause : CenterContainer
 	}
 	private void Back_to_main_menu()
 	{
+
+		_Gdata.highscoreregister();
 		SaveData();
 		GetNode<SceneTransition>("/root/SceneTransitions").ChangeScene("MainMenu.tscn");
 	}
 	private void Quit_Game()
 	{
+
+		_Gdata.highscoreregister();
 		SaveData();
 		GetTree().Quit();
 	}
@@ -82,9 +87,21 @@ public partial class Unpause : CenterContainer
 		if (sense != null) sense.Value = _data.Sensitivity;
 
 	}
+	private void _LoadDataG(GameDAta data)
+	{
+		if (data == null)
+		{
+			GD.PrintErr("Failed to load OptionData. Data is null.");
+			return;
+		}
+		_Gdata = data;
+
+
+	}
 	private void RuntimeLoad()
 	{
 		string fileName = "res://Resources/Options.tres";
+		string fileName2 = "res://Resources/GameData.tres";
 		if (ResourceLoader.Exists(fileName))
 		{
 
@@ -95,6 +112,17 @@ public partial class Unpause : CenterContainer
 		{
 			GD.PrintErr("Options.tres file does not exist.");
 		}
+		if (ResourceLoader.Exists(fileName2))
+		{
+
+			_LoadDataG(ResourceLoader.Load<GameDAta>(fileName2, null, ResourceLoader.CacheMode.Ignore));
+
+		}
+		else
+		{
+			GD.PrintErr("Options.tres file does not exist.");
+		}
+
 
 	}
 	private void FovManag(double y)
@@ -113,6 +141,8 @@ public partial class Unpause : CenterContainer
 	{
 		string fileName = "res://Resources/Options.tres";
 		ResourceSaver.Save(_data, fileName);
+		string fileName2 = "res://Resources/GameData.tres";
+		ResourceSaver.Save(_Gdata, fileName2);
 
 	}
 	private void OnOptionButtonItemSelected(long index)

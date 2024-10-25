@@ -35,8 +35,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_quith"]
 _data = {
-&"RESET": SubResource("Animation_24fqx"),
-&"FadeIn": SubResource("Animation_xtkft")
+&"FadeIn": SubResource("Animation_xtkft"),
+&"RESET": SubResource("Animation_24fqx")
 }
 
 [node name="Splash Screen" type="ColorRect"]
