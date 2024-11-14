@@ -10,7 +10,7 @@ public partial class GLockGunPick : Weapon
 	{
 		despawn = GetNode<Timer>("Timer");
 		despawn.Timeout += QueueFree;
-		Anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		//Anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		//Anim.Play("Hover");
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class RigidE : Node3D
+public partial class RigidE : RigidBody3D
 {
 	private Skeleton3D skele;
 	private Timer Delete;

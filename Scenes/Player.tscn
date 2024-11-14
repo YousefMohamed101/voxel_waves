@@ -1,11 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckxrdtywwtc2w"]
+[gd_scene load_steps=7 format=3 uid="uid://ckxrdtywwtc2w"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q7yn7"]
-[ext_resource type="PackedScene" uid="uid://dew2kduvst0v2" path="res://3d models/Guns/GLockGun.tscn" id="2_p3wdm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o1wyu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_giit5"]
+
+[sub_resource type="Animation" id="Animation_jlgl5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wa621"]
+resource_name = "Death"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.5708)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avkba"]
+_data = {
+&"RESET": SubResource("Animation_jlgl5"),
+&"Death": SubResource("Animation_wa621")
+}
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Raycast") groups=["MC"]]
 collision_layer = 9
@@ -39,8 +81,6 @@ collision_mask = 4
 
 [node name="Marker3D" type="Marker3D" parent="Camera3D"]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, 0.142844)
-
-[node name="GLockGun" parent="Camera3D/Marker3D" instance=ExtResource("2_p3wdm")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -86,3 +126,8 @@ grow_vertical = 0
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "0/0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_avkba")
+}

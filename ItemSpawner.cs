@@ -10,7 +10,7 @@ public partial class ItemSpawner : Node3D
 	{
 		(ResourceLoader.Load<PackedScene>("res://3d models/Guns/GLockGunPick.tscn"), 10),
 		(ResourceLoader.Load<PackedScene>("res://3d models/Guns/AK47Pick.tscn"), 10),
-		(ResourceLoader.Load<PackedScene>("res://3d models/props/ammobox.tscn"), 10),
+		(ResourceLoader.Load<PackedScene>("res://3d models/props/ammobox.tscn"), 15),
 	};
 
 	[Export]

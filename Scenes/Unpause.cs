@@ -38,7 +38,7 @@ public partial class Unpause : CenterContainer
 		SE = GetNode<HSlider>("VBoxContainer/GridContainer/Effects");
 		Master = GetNode<HSlider>("VBoxContainer/GridContainer/Master");
 		sense = GetNode<HSlider>("VBoxContainer/GridContainer/Sense");
-		RuntimeLoad();
+
 		Fov.ValueChanged += FovManag;
 		Fullcheck.Toggled += OnFullscreenToggled;
 		Res.ItemSelected += OnOptionButtonItemSelected;
@@ -58,6 +58,7 @@ public partial class Unpause : CenterContainer
 	}
 	private void Back_to_main_menu()
 	{
+		RuntimeLoad();
 
 		_Gdata.highscoreregister();
 		SaveData();
@@ -65,6 +66,7 @@ public partial class Unpause : CenterContainer
 	}
 	private void Quit_Game()
 	{
+		RuntimeLoad();
 
 		_Gdata.highscoreregister();
 		SaveData();

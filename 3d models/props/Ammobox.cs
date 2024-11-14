@@ -11,8 +11,8 @@ public partial class Ammobox : StaticBody3D
 	{
 		despawn = GetNode<Timer>("Timer");
 		despawn.Timeout += QueueFree;
-		Anim = GetNode<AnimationPlayer>("AnimationPlayer");
-		Anim.Play("Hover");
+		//Anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		//Anim.Play("Hover");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

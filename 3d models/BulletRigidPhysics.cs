@@ -26,11 +26,14 @@ public partial class BulletRigidPhysics : RigidBody3D
 		{
 			var par = body.GetParent().GetParent().GetParent().GetParent();
 			var part = body.GetParent();
+			var source = this.GlobalTransform.Origin;
 
 			if (part.Name == "Head")
 			{
+				
+
 				damage = 10;
-				par.Call("recieve_damage", damage);
+				par.Call("recieve_damage", damage,350,source);
 				damaged = true;
 				QueueFree();
 
@@ -38,7 +41,7 @@ public partial class BulletRigidPhysics : RigidBody3D
 			else if (part.Name != "Head")
 			{
 				damage = 1;
-				par.Call("recieve_damage", damage);
+				par.Call("recieve_damage", damage,350,source);
 				damaged = true;
 				QueueFree();
 			}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://78j58787y3cn"]
+[gd_scene load_steps=26 format=3 uid="uid://78j58787y3cn"]
 
 [ext_resource type="Script" path="res://Scenes/World.cs" id="1_h2eye"]
 [ext_resource type="Script" path="res://Scenes/Unpause.cs" id="2_e3rar"]
@@ -8,6 +8,7 @@
 [ext_resource type="MeshLibrary" uid="uid://cbwq0m2vfb3hm" path="res://terrain/EnvLibraries/Props.meshlib" id="4_qth5k"]
 [ext_resource type="MeshLibrary" uid="uid://cir43tx8i61dx" path="res://terrain/EnvLibraries/Dirt improved.tres" id="5_fvmjd"]
 [ext_resource type="Script" path="res://Scenes/Unpause2.cs" id="5_i6t13"]
+[ext_resource type="Script" path="res://Scenes/GameOver.cs" id="6_5qm4q"]
 [ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="6_7qdlm"]
 [ext_resource type="Texture2D" uid="uid://bqph0gs6mgtfq" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a3.png" id="7_a0y38"]
 [ext_resource type="Texture2D" uid="uid://m4uidkkq4cx0" path="res://UI/Buttons/Tick.png" id="8_1bmv1"]
@@ -18,8 +19,7 @@
 [ext_resource type="Script" path="res://Scenes/EnemySpawner.cs" id="10_ggg4d"]
 [ext_resource type="Texture2D" uid="uid://bg0usoip1rmuw" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a1.png" id="11_erqc0"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jj706"]
-texture = ExtResource("7_a0y38")
+[sub_resource type="CanvasTexture" id="CanvasTexture_ofd8h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dikl1"]
 texture = ExtResource("10_bx5gi")
@@ -27,7 +27,8 @@ texture = ExtResource("10_bx5gi")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdnj1"]
 texture = ExtResource("11_erqc0")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_ofd8h"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jj706"]
+texture = ExtResource("7_a0y38")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ijfl3"]
 panorama = ExtResource("8_n57px")
@@ -72,11 +73,85 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
+[node name="Player" parent="." node_paths=PackedStringArray("canva") instance=ExtResource("3_6ww20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.33944, 0)
+canva = NodePath("../GameOver")
+
+[node name="CenterContainer2" type="CenterContainer" parent="Player/Control" index="2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Player/Control/CenterContainer2"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+texture = SubResource("CanvasTexture_ofd8h")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+script = ExtResource("6_5qm4q")
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOver"]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -320.0
+offset_right = 296.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer"]
+layout_mode = 2
+
+[node name="Highscore" type="Label" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.992188, 1, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+text = "HighScore:"
+
+[node name="Back_to_main_menu" type="Button" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
+text = "Back to main Menu"
+
+[node name="Quit_Game" type="Button" parent="GameOver/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_7qdlm")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
+text = "Quit Game"
+
 [node name="Unpause" type="CanvasLayer" parent="."]
 process_mode = 2
 script = ExtResource("5_i6t13")
 
 [node name="ColorRect" type="ColorRect" parent="Unpause"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -86,6 +161,7 @@ color = Color(0.176471, 0.176471, 0.176471, 0.639216)
 
 [node name="CenterContainer" type="CenterContainer" parent="Unpause"]
 process_mode = 3
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -249,24 +325,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_dikl1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdnj1")
 text = "Quit Game"
 
-[node name="CenterContainer2" type="CenterContainer" parent="Unpause"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Unpause/CenterContainer2"]
-custom_minimum_size = Vector2(5, 5)
-layout_mode = 2
-texture = SubResource("CanvasTexture_ofd8h")
-
 [node name="Score" type="Label" parent="Unpause"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -282,7 +340,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.11578, 0)
 script = ExtResource("3_0bups")
 
 [node name="ITT" type="Timer" parent="ItemSpawner"]
-wait_time = 600.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 
@@ -299,14 +357,6 @@ environment = SubResource("Environment_vyf55")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
-
-[node name="Player" parent="." instance=ExtResource("3_6ww20")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.413536, 2.09304, 0)
-collision_layer = 8
-
-[node name="RayCast3D" parent="Player/Camera3D" index="0"]
-transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
-target_position = Vector3(0, 0, -9999)
 
 [node name="Z1A2" parent="." instance=ExtResource("9_hx3ox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20607, 0, -10)

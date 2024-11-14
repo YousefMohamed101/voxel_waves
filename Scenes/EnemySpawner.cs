@@ -80,8 +80,9 @@ public partial class EnemySpawner : Node3D
 				Vector3 randomPosition = worldPos;
 				instance.GlobalTransform = new Transform3D(Basis.Identity, randomPosition);
 			}
-		}
 
+		}
+		waveno += 5;
 
 	}
 

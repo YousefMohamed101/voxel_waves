@@ -10,6 +10,7 @@ public partial class Player : CharacterBody3D
 	// Correctly point to the .tscn files for your weapons
 	private PackedScene Ak47 = GD.Load<PackedScene>("res://3d models/Guns/ak_47.tscn");
 	private PackedScene Glock = GD.Load<PackedScene>("res://3d models/Guns/GLockGun.tscn");
+	private PackedScene Bomb = GD.Load<PackedScene>("res://BombEquiped.tscn");
 	private Weapon[] weaponInstances = new Weapon[2];
 	private Camera3D camera;
 	[Export] public float Sensitivity = 0.1f;
@@ -35,7 +36,13 @@ public partial class Player : CharacterBody3D
 	private int health;
 	private ProgressBar Healthbar;
 	private OptionData _data;
-
+	private GameDAta _data2;
+	private bool Dead = false;
+	private bool deadR = false;
+	private bool ADead = false;
+	public AnimationPlayer anime;
+	[Export] CanvasLayer canva;
+	public GameMusicHandler DJ;
 
 	public override void _Ready()
 	{
@@ -55,12 +62,14 @@ public partial class Player : CharacterBody3D
 		Area3D playerBox = GetNode<Area3D>("Playerbox");
 		equippedWeapon = null;
 		Healthbar.MaxValue = health;
+		anime = GetNode<AnimationPlayer>("AnimationPlayer");
+		canva = GetNode<CanvasLayer>("/root/World/GameOver");
+		DJ = GetNode<GameMusicHandler>("/root/GameMusicHandler");
 
-		// Instantiate the starting weapon correctly
 		AddToInventory(Glock, 0);
-		AddToInventory(Ak47, 1);
+		AddToInventory(Bomb, 1);
 
-		EquipWeapon(0); // Equip first weapon by default
+		EquipWeapon(0);
 
 
 
@@ -74,32 +83,31 @@ public partial class Player : CharacterBody3D
 
 
 	}
+	private void _LoadData2(GameDAta data)
+	{
+		_data2 = data;
+		deadR = _data2.deads;
+	}
 	private void RuntimeLoad()
 	{
 		string fileName = "res://Resources/Options.tres";
+		string fileName2 = "res://Resources/GameData.tres";
 		if (ResourceLoader.Exists(fileName))
 		{
 
 			_LoadData(ResourceLoader.Load<OptionData>(fileName, null, ResourceLoader.CacheMode.Ignore));
+			_LoadData2(ResourceLoader.Load<GameDAta>(fileName2, null, ResourceLoader.CacheMode.Ignore));
 		}
 
 	}
-	private void InitializeWeapons()
-	{
-		// Create instances of weapons and store them
-		weaponInstances[0] = Glock.Instantiate<Weapon>();
-		weaponInstances[1] = Ak47.Instantiate<Weapon>();
 
-		// Initialize each weapon
-		foreach (var weapon in weaponInstances)
-		{
-			if (weapon != null)
-			{
-				weapon.MagazineChange += ONMagazineChange;
-				// Keep the weapon out of the scene tree until equipped
-				weapon.Owner?.RemoveChild(weapon);
-			}
-		}
+	private void SaveData()
+	{
+		string fileName = "res://Resources/Options.tres";
+		ResourceSaver.Save(_data, fileName);
+		string fileName2 = "res://Resources/GameData.tres";
+		ResourceSaver.Save(_data2, fileName2);
+
 	}
 
 
@@ -114,12 +122,19 @@ public partial class Player : CharacterBody3D
 
 			if (body is GLockGunPick)
 			{
-				weaponInstance = Glock.Instantiate() as Node3D;
+
+				AddToInventory(Glock, 0);
+				EquipWeapon(0);
+
+
 			}
 			else if (body is Ak47Pick)
 			{
-				weaponInstance = Ak47.Instantiate() as Node3D;
+
+				AddToInventory(Ak47, 0);
+				EquipWeapon(0);
 			}
+
 
 
 		}
@@ -135,14 +150,32 @@ public partial class Player : CharacterBody3D
 			}
 
 		}
+		body.QueueFree();
 	}
 
 	private void recieve_damage(int x)
 	{
 		health -= x;
 		Healthbar.Value = health;
-		GD.Print(health);
+		if (health <= 0 && ADead == false)
+		{
+			Dead = true;
+			anime.Play("Death");
+			ADead = true;
+			DJ.deadss = true;
+			RuntimeLoad();
+			_data2.highscoreregister();
+			SaveData();
+			GetTree().CreateTimer(2.0).Timeout += deathscreen;
 
+
+		}
+	}
+	public void deathscreen()
+	{
+		canva.Visible = true;
+		GetParent().GetTree().Paused = true;
+		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Visible);
 	}
 
 
@@ -179,6 +212,11 @@ public partial class Player : CharacterBody3D
 			weaponToEquip.MagazineChange += ONMagazineChange;
 			weaponToEquip.EmitMagazineChange(gl.clips, gl.MagazineSize);
 		}
+		else if (weaponToEquip is BombEquiped Bmb)
+		{
+			weaponToEquip.MagazineChange += ONMagazineChange;
+			weaponToEquip.EmitMagazineChange(Bmb.clips, Bmb.MagazineSize);
+		}
 
 
 
@@ -209,6 +247,7 @@ public partial class Player : CharacterBody3D
 		if (weaponIndex != currentWeaponIndex && weaponInstances[weaponIndex] != null)
 		{
 			EquipWeapon(weaponIndex);
+
 		}
 	}
 
@@ -230,11 +269,11 @@ public partial class Player : CharacterBody3D
 
 		Vector3 velocity = Velocity;
 		JumpVelocity = Mathf.Sqrt(2 * Strength * W_Gravity);
-		if (Input.IsActionPressed("slot_1"))
+		if (Input.IsActionPressed("slot_1") && Dead == false)
 		{
 			SwitchWeapons(0);
 		}
-		else if (Input.IsActionPressed("slot_2"))
+		else if (Input.IsActionPressed("slot_2") && Dead == false)
 		{
 			SwitchWeapons(1);
 		}
@@ -245,7 +284,7 @@ public partial class Player : CharacterBody3D
 			velocity += GetGravity() * (float)delta * Weight;
 		}
 
-		if (Input.IsActionJustPressed("Jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("Jump") && IsOnFloor() && Dead == false)
 		{
 			velocity.Y = JumpVelocity / Weight;
 		}
@@ -253,10 +292,10 @@ public partial class Player : CharacterBody3D
 		Vector2 inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
 		Vector3 forward = camera.GlobalTransform.Basis.Z.Normalized();
 		Vector3 right = camera.GlobalTransform.Basis.X.Normalized();
-		Vector3 direction = (camera.Transform.Basis * new Vector3(inputDir.Y, 0, -inputDir.X)).Normalized();
+		Vector3 direction = (camera.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		bool isRunning = Input.IsActionPressed("Run");
 
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && Dead == false)
 		{
 			float currentSpeed = Speed;
 
@@ -281,7 +320,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion R)
+		if (@event is InputEventMouseMotion R && Dead == false)
 		{
 			_yaw -= R.Relative.X * Sensitivity;
 			_pitch -= R.Relative.Y * Sensitivity;

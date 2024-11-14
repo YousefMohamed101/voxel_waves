@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://2t208cucj3ov"]
+
+[ext_resource type="PackedScene" uid="uid://dp8303s5vg4cj" path="res://3d models/Grenades/nade_001.fbx" id="1_xisni"]
+[ext_resource type="Script" path="res://BombEquiped.cs" id="2_2iams"]
+[ext_resource type="PackedScene" uid="uid://cq2cdkdgv0ql4" path="res://Scenes/Bomb.tscn" id="3_g5e4k"]
+
+[sub_resource type="Animation" id="Animation_h3i1p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cylinder_025:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2pcl6"]
+resource_name = "Reload"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cylinder_025:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.954962, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qv00y"]
+resource_name = "IDLE"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cylinder_025:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.517107, 0), Vector3(0, 0.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tuwlo"]
+resource_name = "Walking"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cylinder_025:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.276611), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uhnuh"]
+_data = {
+&"RESET": SubResource("Animation_h3i1p"),
+&"Reload": SubResource("Animation_2pcl6"),
+&"Walking": SubResource("Animation_tuwlo"),
+&"IDLE": SubResource("Animation_qv00y")
+}
+
+[node name="BombE" instance=ExtResource("1_xisni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.742, 0, 0.899)
+script = ExtResource("2_2iams")
+model = ExtResource("3_g5e4k")
+
+[node name="Cylinder_025" parent="." index="0"]
+transform = Transform3D(0.589568, 0, 0, 0, 0.589568, 0, 0, 0, 0.589568, 0, 0, 0)
+
+[node name="FireRate" type="Timer" parent="." index="1"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_uhnuh")
+}
+
+[node name="ReloadTime" type="Timer" parent="." index="3"]
+one_shot = true

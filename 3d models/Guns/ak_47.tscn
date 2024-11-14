@@ -34,18 +34,6 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.5, 1, 0, 0, 0, 1, 1.25, 1, 0, 0, 0.707107, 0.707107, 2, 1, 0, 0, 0, 1, 3, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_g2ptg"]
-resource_name = "Shooting"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Cube_001")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.05, 1, -0.243785, 0, 0)
-
 [sub_resource type="Animation" id="Animation_o1ym5"]
 resource_name = "IDLE"
 step = 0.25
@@ -70,13 +58,25 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.5, 0.25, 1, 0, 0, 0, 0.5, 1, 0, 0, -0.5)
 
+[sub_resource type="Animation" id="Animation_g2ptg"]
+resource_name = "Shooting"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.05, 1, -0.243785, 0, 0)
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ju63"]
 _data = {
-&"Reload": SubResource("Animation_i8qsb"),
 &"RESET": SubResource("Animation_hq163"),
-&"Shooting": SubResource("Animation_g2ptg"),
+&"Reload": SubResource("Animation_i8qsb"),
 &"IDLE": SubResource("Animation_o1ym5"),
-&"Moving": SubResource("Animation_1o1h7")
+&"Moving": SubResource("Animation_1o1h7"),
+&"Shooting": SubResource("Animation_g2ptg")
 }
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m56ox"]

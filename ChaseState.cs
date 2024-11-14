@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class ChaseState : State
 {
-	private float speed = 5;
+	private float speed = 10;
 	[Export] public CharacterBody3D Enemy;
 	[Export] public AnimationPlayer AnimMan;
 	[Export] private Area3D hand;
@@ -64,6 +64,7 @@ public partial class ChaseState : State
 					Enemy.LookAt(Enemy.GlobalPosition - Direction, Vector3.Up);
 					if (Enemy.Velocity.Length() > 0)
 					{
+						AnimMan.SpeedScale = 1.5f;
 						AnimMan.Play("Running");
 					}
 				}
@@ -76,10 +77,12 @@ public partial class ChaseState : State
 					}
 					if (AttackChoiceD == 0 && attacking == false)
 					{
+						AnimMan.SpeedScale = 2f;
 						AnimMan.Play("punching");
 					}
 					else if (AttackChoiceD == 1 && attacking == false)
 					{
+						AnimMan.SpeedScale = 2f;
 						AnimMan.Play("Kicking");
 					}
 

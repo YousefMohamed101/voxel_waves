@@ -107,9 +107,8 @@ jolt_3d/limits/max_bodies=50000
 
 [rendering]
 
-global_illumination/gi/use_half_resolution=true
-global_illumination/voxel_gi/quality=1
-scaling_3d/mode=1
+textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/compress_with_gpu=false
 textures/decals/filter=2
 textures/light_projectors/filter=2
 anti_aliasing/quality/msaa_2d=3

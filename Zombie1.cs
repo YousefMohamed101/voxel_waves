@@ -11,42 +11,12 @@ public partial class Zombie1 : CharacterBody3D
 
 	private int health = 10;
 	private AnimationPlayer Anim;
-	private GameDAta _gdata;
+
 	private World world;
 	private int score;
 
-	private void _LoadData(GameDAta data)
-	{
-		if (data == null)
-		{
-			GD.PrintErr("Failed to load OptionData. Data is null.");
-			return;
-		}
-		_gdata = data;
 
 
-	}
-	private void RuntimeLoad()
-	{
-		string fileName = "res://Resources/GameData.tres";
-		if (ResourceLoader.Exists(fileName))
-		{
-
-			_LoadData(ResourceLoader.Load<GameDAta>(fileName, null, ResourceLoader.CacheMode.Ignore));
-
-		}
-		else
-		{
-			GD.PrintErr("Options.tres file does not exist.");
-		}
-
-	}
-	private void SaveData()
-	{
-		string fileName = "res://Resources/GameData.tres";
-		ResourceSaver.Save(_gdata, fileName);
-
-	}
 
 	public override void _Ready()
 	{
@@ -57,7 +27,7 @@ public partial class Zombie1 : CharacterBody3D
 
 
 	}
-	private void recieve_damage(int x)
+	private void recieve_damage(int x, int y, Vector3 source)
 	{
 		health -= x;
 		GD.Print(health);
@@ -65,8 +35,9 @@ public partial class Zombie1 : CharacterBody3D
 		{
 
 			world.scoreupdate(5);
-			Node3D Rag = dragdoll.Instantiate<Node3D>();
+			RigidBody3D Rag = dragdoll.Instantiate<RigidBody3D>();
 			Rag.Position = this.GlobalPosition;
+			Rag.ApplyCentralForce((GlobalTransform.Origin - source).Normalized() * y);
 			QueueFree();
 			GetTree().Root.AddChild(Rag);
 

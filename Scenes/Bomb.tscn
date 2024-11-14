@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=4 uid="uid://cq2cdkdgv0ql4"]
+[gd_scene load_steps=10 format=4 uid="uid://cq2cdkdgv0ql4"]
 
 [ext_resource type="Script" path="res://Scenes/Bomb.cs" id="1_rcwse"]
 [ext_resource type="Texture2D" uid="uid://h7v25blsdalf" path="res://3d models/Grenades/nade_001_0.png" id="1_uvfjs"]
+[ext_resource type="PackedScene" uid="uid://c52w02p3bmljv" path="res://explosionparticle.tscn" id="2_u4ehp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bx0g7"]
+bounce = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5xfr"]
 resource_name = "fer"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("1_uvfjs")
 emission_enabled = true
 
@@ -51,7 +54,11 @@ radius = 0.2
 radius = 5.0
 
 [node name="Bomb" type="RigidBody3D"]
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_bx0g7")
+continuous_cd = true
 script = ExtResource("1_rcwse")
+explosinonVFX = ExtResource("2_u4ehp")
 
 [node name="Cylinder_025" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.589568, 0, 0, 0, 0.589568, 0, 0, 0, 0.589568, 0, 0, 0)
@@ -68,3 +75,4 @@ shape = SubResource("SphereShape3D_xsw0e")
 shape = SubResource("SphereShape3D_wxrf4")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true

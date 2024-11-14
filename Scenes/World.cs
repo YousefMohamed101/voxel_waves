@@ -53,6 +53,7 @@ public partial class World : Node3D
 	{
 		RuntimeLoad();
 		_gdata.Score = 0;
+		_gdata.deads = false;
 		SaveData();
 		DJ = GetNode<GameMusicHandler>("/root/GameMusicHandler");
 		InGameMenu = GetNode<CenterContainer>("Unpause/CenterContainer");
@@ -78,6 +79,7 @@ public partial class World : Node3D
 
 
 	}
+
 
 
 	public override void _Input(InputEvent @event)
