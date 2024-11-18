@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public partial class ChaseState : State
 {
 	private float speed = 10;
+	private float separationRadius = 5.0f; // Minimum distance between enemies
+	private float separationWeight = 0.5f;
+
 	[Export] public CharacterBody3D Enemy;
 	[Export] public AnimationPlayer AnimMan;
 	[Export] private Area3D hand;
@@ -12,6 +15,7 @@ public partial class ChaseState : State
 	private Node3D targetPlayer;
 	public bool attacking;
 	public bool canattack;
+	[Export] public NavigationAgent3D Tracker;
 	private RandomNumberGenerator AttackChoice;
 	private int AttackChoiceD;
 	public override void Enter()
@@ -36,6 +40,7 @@ public partial class ChaseState : State
 		canattack = true;
 
 
+
 	}
 	public override void Update(float delta)
 	{
@@ -45,71 +50,30 @@ public partial class ChaseState : State
 	public override void PhysicsUpdate(float delta)
 	{
 
-		if (Manager.NearestPlayer != null)
+		if (Manager.NearestPlayer == null)
 		{
-
-			if (Enemy.IsOnFloor())
-			{
-				Vector3 Direction_Distance = Manager.getNearstPlayer() - Enemy.GlobalPosition;
-
-				Vector3 Direction = Direction_Distance.Normalized();
-				Direction.Y = 0;
-				Direction = Direction.Normalized();
-				Direction_Distance.Y = 0;
-				float distanceok = Direction_Distance.Length();
-
-				if (distanceok > 1.5 && canattack == true)
-				{
-					Enemy.Velocity = Direction * speed;
-					Enemy.LookAt(Enemy.GlobalPosition - Direction, Vector3.Up);
-					if (Enemy.Velocity.Length() > 0)
-					{
-						AnimMan.SpeedScale = 1.5f;
-						AnimMan.Play("Running");
-					}
-				}
-				else if (distanceok <= 1.5)
-				{
-					AttackChoiceD = AttackChoice.RandiRange(0, 1);
-					if (canattack == true)
-					{
-						attacking = false;
-					}
-					if (AttackChoiceD == 0 && attacking == false)
-					{
-						AnimMan.SpeedScale = 2f;
-						AnimMan.Play("punching");
-					}
-					else if (AttackChoiceD == 1 && attacking == false)
-					{
-						AnimMan.SpeedScale = 2f;
-						AnimMan.Play("Kicking");
-					}
-
-
-					Enemy.Velocity = new Vector3(0, 0, 0);
-				}
-
-
-
-			}
-			else
-			{
-				Vector3 direction = (Manager.getNearstPlayer() - Enemy.GlobalPosition).Normalized();
-				Enemy.Velocity = speed * Enemy.GetGravity();
-				Enemy.LookAt(Enemy.GlobalPosition - direction, Vector3.Up);
-				if (Enemy.Velocity.Length() > 0)
-				{
-					AnimMan.Play("Running");
-				}
-
-			}
-		}
-		else if (Manager.NearestPlayer == null)
-		{
-			Enemy.Velocity = new Vector3(0, 0, 0);
-			Enemy.MoveAndSlide();
+			StopEnemy();
 			Manager.TransitionTO("Idle");
+			return;
+		}
+
+		if (!Enemy.IsOnFloor()) // Handle air motion
+		{
+			HandleAirMotion();
+			return;
+		}
+
+		Vector3 targetDirection = (Manager.getNearstPlayer() - Enemy.GlobalPosition).Normalized();
+		targetDirection.Y = 0;
+
+		float distance = (Manager.getNearstPlayer() - Enemy.GlobalPosition).Length();
+		if (distance > 1.5f && canattack)
+		{
+			HandleChase(targetDirection);
+		}
+		else if (distance <= 1.5f)
+		{
+			HandleAttack();
 		}
 	}
 
@@ -145,6 +109,62 @@ public partial class ChaseState : State
 		{
 			canattack = true;
 		}
+	}
+
+
+	private void HandleChase(Vector3 direction)
+	{
+
+
+		Enemy.Velocity = direction * speed;
+		Enemy.LookAt(Enemy.GlobalPosition - direction, Vector3.Up);
+
+		if (Enemy.Velocity.Length() > 0)
+		{
+			AnimMan.SpeedScale = 1.5f;
+			AnimMan.Play("Running");
+		}
+	}
+
+	private void HandleAttack()
+	{
+		if (canattack)
+		{
+			int attackChoiceD = AttackChoice.RandiRange(0, 1);
+			AnimMan.SpeedScale = 2f;
+
+			if (attackChoiceD == 0 && !attacking)
+			{
+				AnimMan.Play("punching");
+			}
+			else if (attackChoiceD == 1 && !attacking)
+			{
+				AnimMan.Play("Kicking");
+			}
+
+			attacking = true;
+			canattack = false;
+		}
+
+		Enemy.Velocity = Vector3.Zero;
+	}
+
+	private void HandleAirMotion()
+	{
+		Vector3 direction = (Manager.getNearstPlayer() - Enemy.GlobalPosition).Normalized();
+		Enemy.Velocity = speed * Enemy.GetGravity();
+		Enemy.LookAt(Enemy.GlobalPosition - direction, Vector3.Up);
+
+		if (Enemy.Velocity.Length() > 0)
+		{
+			AnimMan.Play("Running");
+		}
+	}
+
+	private void StopEnemy()
+	{
+		Enemy.Velocity = Vector3.Zero;
+		Enemy.MoveAndSlide();
 	}
 
 

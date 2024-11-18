@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://guhhtjcexyvm"
-path.s3tc="res://.godot/imported/CountrySide-8-Rock.png-ad77c654bf8625e25869cf2938dbfdb9.s3tc.ctex"
+uid="uid://be0wq1kpgg4yr"
+path.s3tc="res://.godot/imported/ak47_1.png-60fe7fbb0a8056f19613500810b4b621.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "fd85eca15e95813d4e816b8159245fb1"
+}
 
 [deps]
 
-source_file="res://terrain/Obj/CountrySide-8-Rock.png"
-dest_files=["res://.godot/imported/CountrySide-8-Rock.png-ad77c654bf8625e25869cf2938dbfdb9.s3tc.ctex"]
+source_file="res://3d models/Guns/ak47_1.png"
+dest_files=["res://.godot/imported/ak47_1.png-60fe7fbb0a8056f19613500810b4b621.s3tc.ctex"]
 
 [params]
 

@@ -13,7 +13,7 @@ public partial class WanderState : State
 
 	public override void Ready()
 	{
-		gridMap = GetNode<GridMap>("/root/World/Land");
+		gridMap = GetNode<GridMap>("/root/World/NavigationRegion3D/Land");
 		wanderTime = 1f;
 		NumberRando = new RandomNumberGenerator();
 	}

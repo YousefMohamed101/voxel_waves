@@ -28,7 +28,7 @@ public partial class EnemySpawner : Node3D
 	public override void _Ready()
 	{
 		EnSpawn = GetNode<Timer>("EnemySpawnTime");
-		WorldMap = GetNode<GridMap>("/root/World/Land");
+		WorldMap = GetNode<GridMap>("/root/World/NavigationRegion3D/Land");
 		WaveSpawn();
 		EnSpawn.Timeout += WaveSpawn;
 
@@ -82,7 +82,7 @@ public partial class EnemySpawner : Node3D
 			}
 
 		}
-		waveno += 5;
+
 
 	}
 

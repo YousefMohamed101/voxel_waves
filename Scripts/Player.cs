@@ -15,7 +15,7 @@ public partial class Player : CharacterBody3D
 	private Camera3D camera;
 	[Export] public float Sensitivity = 0.1f;
 	[Export] public float MaxPitch = 90.0f;
-	[Export] public float MinPitch = -90.0f;
+	[Export] public float MinPitch = -85.0f;
 	[Export] public float Strength = 8.0f;
 	public int magazine = 0;
 	private int currentWeaponIndex = 0;
@@ -43,6 +43,7 @@ public partial class Player : CharacterBody3D
 	public AnimationPlayer anime;
 	[Export] CanvasLayer canva;
 	public GameMusicHandler DJ;
+	public Area3D playerBox;
 
 	public override void _Ready()
 	{
@@ -59,7 +60,7 @@ public partial class Player : CharacterBody3D
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Captured);
 		camera = GetNode<Camera3D>("Camera3D");
 		Healthbar = GetNode<ProgressBar>("Control/Health/ProgressBar");
-		Area3D playerBox = GetNode<Area3D>("Playerbox");
+		playerBox = GetNode<Area3D>("Playerbox");
 		equippedWeapon = null;
 		Healthbar.MaxValue = health;
 		anime = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -143,11 +144,10 @@ public partial class Player : CharacterBody3D
 			var equippedlife = marker.GetChild(0);
 
 
-			if (equippedlife.HasMethod("refill"))
-			{
-				GD.Print(body.Name);
-				equippedlife.Call("refill");
-			}
+
+			GD.Print(body.Name);
+			equippedlife.Call("refill");
+
 
 		}
 		body.QueueFree();
@@ -292,7 +292,9 @@ public partial class Player : CharacterBody3D
 		Vector2 inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
 		Vector3 forward = camera.GlobalTransform.Basis.Z.Normalized();
 		Vector3 right = camera.GlobalTransform.Basis.X.Normalized();
-		Vector3 direction = (camera.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		Vector3 direction = (camera.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y));
+		direction.Y = 0; // Remove vertical component
+		direction = direction.Normalized();
 		bool isRunning = Input.IsActionPressed("Run");
 
 		if (direction != Vector3.Zero && Dead == false)

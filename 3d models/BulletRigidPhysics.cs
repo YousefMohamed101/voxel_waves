@@ -30,10 +30,10 @@ public partial class BulletRigidPhysics : RigidBody3D
 
 			if (part.Name == "Head")
 			{
-				
+
 
 				damage = 10;
-				par.Call("recieve_damage", damage,350,source);
+				par.Call("recieve_damage", damage, 350, source);
 				damaged = true;
 				QueueFree();
 
@@ -41,7 +41,7 @@ public partial class BulletRigidPhysics : RigidBody3D
 			else if (part.Name != "Head")
 			{
 				damage = 1;
-				par.Call("recieve_damage", damage,350,source);
+				par.Call("recieve_damage", damage, 1, source);
 				damaged = true;
 				QueueFree();
 			}

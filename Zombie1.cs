@@ -33,13 +33,17 @@ public partial class Zombie1 : CharacterBody3D
 		GD.Print(health);
 		if (health <= 0)
 		{
+			QueueFree();
 
 			world.scoreupdate(5);
 			RigidBody3D Rag = dragdoll.Instantiate<RigidBody3D>();
 			Rag.Position = this.GlobalPosition;
-			Rag.ApplyCentralForce((GlobalTransform.Origin - source).Normalized() * y);
-			QueueFree();
+			Rag.Rotation = this.GlobalRotation;
 			GetTree().Root.AddChild(Rag);
+
+			Rag.ApplyCentralImpulse((GlobalTransform.Origin - source).Normalized() * y);
+
+
 
 		}
 	}

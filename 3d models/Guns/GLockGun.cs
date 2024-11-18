@@ -60,7 +60,7 @@ public partial class GLockGun : Weapon
 	}
 	public void refill()
 	{
-		clips = 10;
+		clips = 5;
 		EmitMagazineChange(clips, MagazineSize);
 	}
 	public override void _PhysicsProcess(double delta)

@@ -13,9 +13,9 @@ public partial class BombEquiped : Weapon
     [Export] public PackedScene model;
     private bool mouse_left_down;
     private AnimationPlayer Anime;
-	private bool Walking;
+    private bool Walking;
     [Export] public int MagazineSize { get; set; } = 30;
-	[Export] public int clips { get; set; } = 10;
+    [Export] public int clips { get; set; } = 10;
     private string currentAnimation = "IDLE";
     private bool reloading = false; // Track reload state
 
@@ -36,10 +36,10 @@ public partial class BombEquiped : Weapon
     }
 
     public void refill()
-	{
-		clips = 10;
-		EmitMagazineChange(clips, MagazineSize);
-	}
+    {
+        clips = 10;
+        EmitMagazineChange(clips, MagazineSize);
+    }
 
 
 
@@ -51,9 +51,9 @@ public partial class BombEquiped : Weapon
         Counter.Timeout += Timershoot;
         Anime = GetNode<AnimationPlayer>("AnimationPlayer");
         Reloadtime = GetNode<Timer>("ReloadTime");
-		Reloadtime.Stop();
+        Reloadtime.Stop();
         EmitMagazineChange(clips, MagazineSize);
-        
+
     }
     public void throwGrenade()
     {
@@ -66,11 +66,12 @@ public partial class BombEquiped : Weapon
             var grenade = model.Instantiate<RigidBody3D>();
             grenade.Position = camera_transform.Origin + (forward * 0.5f);
             //grenade.LinearVelocity = forward * 10.0f;
-            grenade.ApplyCentralImpulse(forward * 20 + new Vector3(0, 3.5f, 0));
             GetTree().Root.AddChild(grenade);
+            grenade.ApplyCentralImpulse(forward * 20 + new Vector3(0, 3.5f, 0));
+
             triggered = true;
             BombModel.Visible = false;
-            
+
             EmitMagazineChange(clips, MagazineSize);
         }
         else if (camera == null)
@@ -86,57 +87,57 @@ public partial class BombEquiped : Weapon
     {
         BombModel.Visible = true;
         triggered = false;
-        GD.Print("done");
+
     }
-   
+
     public override void _PhysicsProcess(double delta)
-	{
-		Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");
+    {
+        Walking = Input.IsActionPressed("Forward") || Input.IsActionPressed("Backward") || Input.IsActionPressed("Right") || Input.IsActionPressed("Left");
 
 
 
-		if (mouse_left_down && Counter.IsStopped() && Reloadtime.IsStopped() )
-		{
+        if (mouse_left_down && Counter.IsStopped() && Reloadtime.IsStopped())
+        {
             Anime.Stop();
-			throwGrenade();
-			MagazineSize -= 1;
-			EmitMagazineChange(clips, MagazineSize);
+            throwGrenade();
+            MagazineSize -= 1;
+            EmitMagazineChange(clips, MagazineSize);
             if (MagazineSize == 0 || !Counter.IsStopped())
-			{
-				mouse_left_down = false;
+            {
+                mouse_left_down = false;
 
-			}
+            }
             GD.Print("Shooting");
             Counter.Start();
-		}
-		else if (Input.IsActionPressed("Reloading") && Reloadtime.IsStopped())
+        }
+        else if (Input.IsActionPressed("Reloading") && Reloadtime.IsStopped())
         {
-            
+
             clips -= 1;
             MagazineSize = 30;
             EmitMagazineChange(clips, MagazineSize);
-            Reloadtime.Start(); 
+            Reloadtime.Start();
             PlayAnimation("Reload");
             GD.Print("Reloaded");
         }
-		else if (!mouse_left_down && Reloadtime.IsStopped())
-		{
-			if (Walking)
-			{
-				PlayAnimation("Walking");
-			}
-			else
-			{
-				PlayAnimation("IDLE");
-			}
-			
-		}
+        else if (!mouse_left_down && Reloadtime.IsStopped())
+        {
+            if (Walking)
+            {
+                PlayAnimation("Walking");
+            }
+            else
+            {
+                PlayAnimation("IDLE");
+            }
 
-	}
+        }
+
+    }
     private void PlayAnimation(string animationName)
-	{
-		if (currentAnimation == animationName) return;
-		Anime.Play(animationName);
-		currentAnimation = animationName;
-	}
+    {
+        if (currentAnimation == animationName) return;
+        Anime.Play(animationName);
+        currentAnimation = animationName;
+    }
 }

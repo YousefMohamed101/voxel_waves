@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Voxel_Waves"
 run/main_scene="res://Scenes/splash_screen.tscn"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -101,16 +101,17 @@ locale/translations=PackedStringArray("res://Localisation/VoxelWave_Translation_
 
 [physics]
 
-3d/physics_engine="GodotPhysics3D"
+3d/physics_engine="JoltPhysics3D"
 common/physics_interpolation=true
+jolt_3d/collisions/areas_detect_static_bodies=true
 jolt_3d/limits/max_bodies=50000
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-textures/vram_compression/compress_with_gpu=false
 textures/decals/filter=2
 textures/light_projectors/filter=2
 anti_aliasing/quality/msaa_2d=3
 anti_aliasing/quality/msaa_3d=3
 mesh_lod/lod_change/threshold_pixels=0.0
+textures/vram_compression/compress_with_gpu=false

@@ -89,6 +89,10 @@ public partial class FsmManager : Node
 	{
 		return NearestPlayer.GlobalPosition;
 	}
+	public Vector3 getNearstPlayerTransOrigin()
+	{
+		return NearestPlayer.GlobalTransform.Origin;
+	}
 
 
 	public void TransitionTO(string Akey)
