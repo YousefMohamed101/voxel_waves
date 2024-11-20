@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo120tbt0uaw"
-path.s3tc="res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.s3tc.ctex"
-path.etc2="res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.etc2.ctex"
+uid="uid://c03srqbnrjyau"
+path.s3tc="res://.godot/imported/Brickwall3_Texture.png-1eb8b48cf4e88839753ca5e68e770b03.s3tc.ctex"
+path.etc2="res://.godot/imported/Brickwall3_Texture.png-1eb8b48cf4e88839753ca5e68e770b03.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Explosion_Textures/T_PerlinNoise_Tiled11_inv.png"
-dest_files=["res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.s3tc.ctex", "res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.etc2.ctex"]
+source_file="res://Brickwall3_Texture.png"
+dest_files=["res://.godot/imported/Brickwall3_Texture.png-1eb8b48cf4e88839753ca5e68e770b03.s3tc.ctex", "res://.godot/imported/Brickwall3_Texture.png-1eb8b48cf4e88839753ca5e68e770b03.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpxl1hxchwk1g"
 path.s3tc="res://.godot/imported/AllSkyFree_Sky_EpicBlueSunset_Equirect.png-2b62618eb30d505b7c069ea035f2c2f2.s3tc.ctex"
+path.etc2="res://.godot/imported/AllSkyFree_Sky_EpicBlueSunset_Equirect.png-2b62618eb30d505b7c069ea035f2c2f2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://BG/AllSkyFree_Sky_EpicBlueSunset_Equirect.png"
-dest_files=["res://.godot/imported/AllSkyFree_Sky_EpicBlueSunset_Equirect.png-2b62618eb30d505b7c069ea035f2c2f2.s3tc.ctex"]
+dest_files=["res://.godot/imported/AllSkyFree_Sky_EpicBlueSunset_Equirect.png-2b62618eb30d505b7c069ea035f2c2f2.s3tc.ctex", "res://.godot/imported/AllSkyFree_Sky_EpicBlueSunset_Equirect.png-2b62618eb30d505b7c069ea035f2c2f2.etc2.ctex"]
 
 [params]
 

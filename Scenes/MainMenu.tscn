@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cukmw8bmq3vfs"]
+[gd_scene load_steps=13 format=3 uid="uid://cukmw8bmq3vfs"]
 
 [ext_resource type="Texture2D" uid="uid://ddpefx5qc3k82" path="res://BG/Summer1.png" id="1_iiscj"]
 [ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="2_ffa31"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="2_hnw67"]
 [ext_resource type="Texture2D" uid="uid://l5aw0kqloyut" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a2.png" id="4_fba8e"]
 [ext_resource type="Texture2D" uid="uid://bg0usoip1rmuw" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a1.png" id="5_16lew"]
+[ext_resource type="Script" path="res://Scenes/ResetResources.cs" id="6_favgi"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sb73"]
 texture = ExtResource("4_fba8e")
@@ -88,3 +89,15 @@ theme_override_font_sizes/font_size = 80
 theme_override_styles/pressed = SubResource("StyleBoxTexture_fmsfs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_n3erx")
 text = "Quit"
+
+[node name="Reset Resources" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ffa31")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0sb73")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2m7sl")
+text = "Reset Resource"
+script = ExtResource("6_favgi")

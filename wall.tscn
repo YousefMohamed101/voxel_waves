@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=4 uid="uid://chd7jb2ifa480"]
+
+[ext_resource type="Texture2D" uid="uid://djlxv4kcxbkjp" path="res://terrain/Wall_Yglb_wall_texture.png" id="1_p6mni"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpfed"]
+resource_name = "Material"
+cull_mode = 2
+albedo_texture = ExtResource("1_p6mni")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_hduxn"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAAGAAQAAAACAAYAAwAGAAIAAwAHAAYABwAEAAYABwAFAAQABQADAAEABQAHAAMAAQACAAAAAQADAAIABQAAAAQABQABAAAA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAAAAP//AAAAAAAAAAAAAAAAAAD/////AAAAAAAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2mqdt"]
+resource_name = "Wall_Yglb_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("Lql+/tlTgAF7AX7+LqnjAS6pewF7AXsBewHm/tlTg/7ZU37+0FbjAXsB4wHZU3sB0FaD/tBWfv57AYABLqmD/i6p5v7QVnsB0FaAAdlT5v57AYP+LqmAAdBW5v7ZU+MB"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AQAUAA4AAQAHABQACgATAAYACgAXABMAFQAMABIAFQAPAAwAEAAJAAMAEAAWAAkABQAIAAIABQALAAgAEQAAAA0AEQAEAAAA"),
+"material": SubResource("StandardMaterial3D_cpfed"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA////////AAD/v/////8AAP////8AAAAAVNX//wAAAAD/////AAAAAP//////////////////////v/////////////8AAP//VNX//wAA////////AAD/////AAD//wAAVNUAAP//AAD//wAA//8AAP+/AAAAAAAAVNUAAAAAAABU1QAAAAAAAP//AAD/////VNUAAP///////wAA//////+/AAAAAP//VNUAAAAA//9U1QAAAAD/////////f////3//v/9/VFVUVf///3//v/9//3//f////3//v/9/VFVUVf9//3//v/9/VFWqqv///3////9/VFWqqlRVVFX///9/VFWqqv9//3////9/VFWqqlRVVFX/f/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_hduxn")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 10, 0, 0, 0, 0.15, 0, 10, 0)
+mesh = SubResource("ArrayMesh_2mqdt")
+skeleton = NodePath("")

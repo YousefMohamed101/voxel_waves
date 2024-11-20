@@ -2,18 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo120tbt0uaw"
-path.s3tc="res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.s3tc.ctex"
-path.etc2="res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.etc2.ctex"
+uid="uid://dvvrqbfd7y2xf"
+path.s3tc="res://.godot/imported/Wall_Y_wall_texture.png-c72a6a33f5eeeac06866f7b396d2b9aa.s3tc.ctex"
+path.etc2="res://.godot/imported/Wall_Y_wall_texture.png-c72a6a33f5eeeac06866f7b396d2b9aa.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "b544a9af4f3ea7e0a8aa85032666cb3d"
+}
 
 [deps]
 
-source_file="res://Explosion_Textures/T_PerlinNoise_Tiled11_inv.png"
-dest_files=["res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.s3tc.ctex", "res://.godot/imported/T_PerlinNoise_Tiled11_inv.png-b685973ddd1b6b7f11bf4bac30c28c46.etc2.ctex"]
+source_file="res://Wall_Y_wall_texture.png"
+dest_files=["res://.godot/imported/Wall_Y_wall_texture.png-c72a6a33f5eeeac06866f7b396d2b9aa.s3tc.ctex", "res://.godot/imported/Wall_Y_wall_texture.png-c72a6a33f5eeeac06866f7b396d2b9aa.etc2.ctex"]
 
 [params]
 

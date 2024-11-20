@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bipewspxswk4t"
 path.s3tc="res://.godot/imported/Zeds-0-Zed_1_0.png-0854fc3b2e8fef938b03379320ff48ad.s3tc.ctex"
+path.etc2="res://.godot/imported/Zeds-0-Zed_1_0.png-0854fc3b2e8fef938b03379320ff48ad.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://3d models/Zeds-0-Zed_1_0.png"
-dest_files=["res://.godot/imported/Zeds-0-Zed_1_0.png-0854fc3b2e8fef938b03379320ff48ad.s3tc.ctex"]
+dest_files=["res://.godot/imported/Zeds-0-Zed_1_0.png-0854fc3b2e8fef938b03379320ff48ad.s3tc.ctex", "res://.godot/imported/Zeds-0-Zed_1_0.png-0854fc3b2e8fef938b03379320ff48ad.etc2.ctex"]
 
 [params]
 

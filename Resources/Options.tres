@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_kwo87")
 M_Slider = 1.0
-BGM_Slider = 0.8
+BGM_Slider = 1.0
 ES_Slider = 1.0
 slide_button = 0
 Button_state = 0
 WindowIndex = 0
 FovSlide = 75.0
-Sensitivity = 100.0
+Sensitivity = 1.0
 LangLocale = "en"

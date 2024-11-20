@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://kruwvtwfwaq2"
 path.s3tc="res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.s3tc.ctex"
+path.etc2="res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Logo/Studio.png"
-dest_files=["res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.s3tc.ctex"]
+dest_files=["res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.s3tc.ctex", "res://.godot/imported/Studio.png-b960a75c85a15cededa03b77300506ee.etc2.ctex"]
 
 [params]
 

@@ -25,6 +25,8 @@ public partial class Settings : Node
 	private OptionData _data;
 	private int button_local_pressed;
 	private HSlider sense;
+	private Label FovInd;
+	private Label SenseInd;
 
 	public override void _Ready()
 	{
@@ -38,6 +40,9 @@ public partial class Settings : Node
 		B_check = GetNode<CheckButton>("CenterContainer/VBoxContainer/GridContainer/CheckButton");
 		Fov = GetNode<HSlider>("CenterContainer/VBoxContainer/GridContainer/Fov2");
 		sense = GetNode<HSlider>("CenterContainer/VBoxContainer/GridContainer/Sense");
+		FovInd = GetNode<Label>("CenterContainer/VBoxContainer/GridContainer/Fov2/FovInd");
+		SenseInd = GetNode<Label>("CenterContainer/VBoxContainer/GridContainer/Sense/SenseInd");
+
 		B_en.Pressed += () => langselected(0);
 		B_fr.Pressed += () => langselected(1);
 		B_es.Pressed += () => langselected(2);
@@ -67,6 +72,8 @@ public partial class Settings : Node
 		{
 			B_check.ButtonPressed = false; // Ensure CheckButton reflects Windowed state
 		}
+		FovInd.Text = $"{Fov.Value}";
+		SenseInd.Text = $"{sense.Value}";
 
 		Slider_Button.ItemSelected += OnOptionButtonItemSelected;
 		MSlider.ValueChanged += OnSliderValueChanged;
@@ -109,12 +116,12 @@ public partial class Settings : Node
 	}
 	private void FovManag(double y)
 	{
-
+		FovInd.Text = $"{y}";
 		_data.FovSlide = (float)y;
 	}
 	private void SenseSet(double y)
 	{
-
+		SenseInd.Text = $"{y}";
 		_data.Sensitivity = (float)y;
 	}
 

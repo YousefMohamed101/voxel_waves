@@ -51,7 +51,7 @@ shadow_mesh = SubResource("ArrayMesh_fbaxv")
 radius = 0.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wxrf4"]
-radius = 10.0
+radius = 5.0
 
 [node name="Bomb" type="RigidBody3D"]
 collision_mask = 5

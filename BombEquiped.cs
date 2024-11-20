@@ -14,8 +14,8 @@ public partial class BombEquiped : Weapon
     private bool mouse_left_down;
     private AnimationPlayer Anime;
     private bool Walking;
-    [Export] public int MagazineSize { get; set; } = 30;
-    [Export] public int clips { get; set; } = 10;
+    [Export] public int MagazineSize { get; set; } = 1;
+    [Export] public int clips { get; set; } = 5;
     private string currentAnimation = "IDLE";
     private bool reloading = false; // Track reload state
 
@@ -37,7 +37,7 @@ public partial class BombEquiped : Weapon
 
     public void refill()
     {
-        clips = 10;
+        clips = 5;
         EmitMagazineChange(clips, MagazineSize);
     }
 

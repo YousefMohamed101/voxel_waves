@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp5fnqu3ivyj4"
 path.s3tc="res://.godot/imported/CountrySide-3-GroundTile1.png-1bee4cb447545fbf8bb79e701ea4a772.s3tc.ctex"
+path.etc2="res://.godot/imported/CountrySide-3-GroundTile1.png-1bee4cb447545fbf8bb79e701ea4a772.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://terrain/Obj/CountrySide-3-GroundTile1.png"
-dest_files=["res://.godot/imported/CountrySide-3-GroundTile1.png-1bee4cb447545fbf8bb79e701ea4a772.s3tc.ctex"]
+dest_files=["res://.godot/imported/CountrySide-3-GroundTile1.png-1bee4cb447545fbf8bb79e701ea4a772.s3tc.ctex", "res://.godot/imported/CountrySide-3-GroundTile1.png-1bee4cb447545fbf8bb79e701ea4a772.etc2.ctex"]
 
 [params]
 

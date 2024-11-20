@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_4na34")
-Highscore = 845
-Score = 245
+Highscore = 0
+Score = 0
 deads = false
