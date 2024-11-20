@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://be4q4xnb8dn80"]
+
+[ext_resource type="ArrayMesh" uid="uid://d4nyhwi7lvgst" path="res://terrain/Obj/CountrySide-0-Vegetation3.obj" id="1_8fn28"]
+[ext_resource type="ArrayMesh" uid="uid://cs8x31h38bhx0" path="res://terrain/Obj/CountrySide-1-Vegetation2.obj" id="2_0q4v7"]
+[ext_resource type="ArrayMesh" uid="uid://crw7nj4lgkf0a" path="res://terrain/Obj/CountrySide-4-Vegetation1.obj" id="3_n7uqk"]
+[ext_resource type="Shader" path="res://Scenes/Wind.gdshader" id="3_qg160"]
+[ext_resource type="ArrayMesh" uid="uid://dpnese2fwhqlb" path="res://terrain/Obj/CountrySide-6-Vegetation5.obj" id="4_tx3ng"]
+[ext_resource type="ArrayMesh" uid="uid://bvm4pjhuycpsh" path="res://terrain/Obj/CountrySide-7-Vegetation4.obj" id="5_bf8a7"]
+[ext_resource type="ArrayMesh" uid="uid://cfx6acddc7obn" path="res://terrain/Obj/CountrySide-8-Rock.obj" id="6_2q0xk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxhsu"]
+render_priority = 0
+shader = ExtResource("3_qg160")
+shader_parameter/grass_color = null
+shader_parameter/player_position = Vector3(0, 0, 0)
+shader_parameter/interaction_power = 0.5
+shader_parameter/interaction_radius = 1.0
+shader_parameter/wind_horizontal_direction = Vector2(1, 0)
+shader_parameter/wind_texture_tile_size = 20.0
+shader_parameter/wind_speed = 0.05
+shader_parameter/wind_strength = 0.3
+shader_parameter/wind_vertical_strength = 0.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vxwpr"]
+points = PackedVector3Array(0.4, -0.10002, -0.100039, 0.4, -0.3, -0.100039, 0.4, -0.10002, -0.400059, 0.2, 0.19998, 0.0999413, 0.3, -0.10002, 0.19998, 0.4, -0.3, -0.400059, 0.3, -0.3, 0.19998, 0.3, -0.10002, -0.5, 0.3, 0, -0.400059, 0.2, 0.19998, -0.200078, 0.1, 0.3, 0.0999413, 0.1, 0.19998, 0.19998, 0, -0.10002, 0.5, 0.3, -0.3, -0.5, 0, -0.3, 0.5, 0, -0.10002, -0.5, 0.1, 0.19998, -0.30002, 0.1, 0.3, -0.200078, -0.2, 0.3, 0.0999413, -0.2, 0.19998, 0.19998, -0.300078, -0.10002, 0.5, 0, -0.3, -0.5, -0.300078, -0.3, 0.5, -0.300078, -0.10002, -0.400059, -0.2, 0.19998, -0.30002, -0.2, 0.3, -0.200078, -0.300078, 0.19998, 0.0999413, -0.300078, 0, 0.399961, -0.4, -0.10002, 0.399961, -0.300078, -0.3, -0.400059, -0.4, -0.3, 0.399961, -0.4, -0.10002, -0.30002, -0.300078, 0.19998, -0.200078, -0.4, -0.3, -0.30002)
+
+[node name="Terrain_Props" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("1_8fn28")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_0q4v7")
+surface_material_override/0 = SubResource("ShaderMaterial_lxhsu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0986713, 0)
+visible = false
+mesh = ExtResource("3_n7uqk")
+skeleton = NodePath("../MeshInstance3D4")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.047287, 0)
+visible = false
+mesh = ExtResource("4_tx3ng")
+skeleton = NodePath("../MeshInstance3D5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0524292, 0)
+visible = false
+mesh = ExtResource("5_bf8a7")
+skeleton = NodePath("../MeshInstance3D6")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.202016, 0)
+visible = false
+mesh = ExtResource("6_2q0xk")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_vxwpr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.20846)

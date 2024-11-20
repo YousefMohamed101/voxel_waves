@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnuv3ote8s7ms"]
+
+[ext_resource type="ArrayMesh" uid="uid://3psyfnqpafik" path="res://terrain/Obj/CountrySide-5-House.obj" id="1_a5j5w"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ffdqe"]
+points = PackedVector3Array(-3.45091, 0.749677, -2.9, -3.65084, -2.05046, -2.50031, -4.75, -1.5502, -2.30047, -3.45091, 0.849922, -2.9, 4.75, 0.749677, -2.9, -3.65084, -2.45, -2.30047, -4.6505, -2.45, -2.20055, 4.75, -2.05046, -2.50031, -4.75, -1.5502, 0.399687, -4.75, -1.45043, -2.30047, -4.0507, 1.04993, -2.50031, -4.0507, 2.24999, -0.70002, 4.75, 0.849922, -2.9, 4.54914, -2.45, -2.30047, -4.6505, -2.45, 0.299765, 4.75, -2.05046, 2.49975, -4.75, -1.45043, 0.399687, -4.0507, 0.749677, 2.89943, -4.0507, 2.45, -0.300333, 4.75, 2.24999, -0.70002, 4.54914, -2.45, 2.2999, -3.65084, -2.45, 2.2999, -3.65084, -2.05046, 2.49975, 4.75, 0.749677, 2.89943, -4.0507, 0.849922, 2.89943, -4.0507, 2.24999, 0.699452, -4.0507, 2.45, 0.299765, 4.75, 2.45, -0.300333, 4.75, 0.849922, 2.89943, 4.75, 2.24999, 0.699452, 4.75, 2.45, 0.299765)
+
+[node name="House" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = ExtResource("1_a5j5w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("ConvexPolygonShape3D_ffdqe")

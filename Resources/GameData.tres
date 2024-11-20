@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameDAta" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/GameDAta.cs" id="1_4na34"]
+
+[resource]
+script = ExtResource("1_4na34")
+Highscore = 845
+Score = 245
+deads = false

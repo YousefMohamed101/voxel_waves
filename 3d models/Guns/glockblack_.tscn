@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8tnvx0b75dk0"]
-
-[ext_resource type="PackedScene" uid="uid://d2ty0c8mj07ri" path="res://3d models/Guns/glockblack_.fbx" id="1_kpjwh"]
-
-[node name="glockblack_" instance=ExtResource("1_kpjwh")]
-
-[node name="Cube_008" parent="." index="0"]
-transform = Transform3D(0.139461, 0, 0, 0, 0.139461, 0, 0, 0, 0.139461, 0.652, -0.056, 0)

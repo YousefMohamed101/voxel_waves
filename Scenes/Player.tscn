@@ -1,32 +1,134 @@
 [gd_scene load_steps=7 format=3 uid="uid://ckxrdtywwtc2w"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q7yn7"]
-[ext_resource type="PackedScene" uid="uid://oyhc6r7xknhm" path="res://Scenes/HUD.tscn" id="2_1eun8"]
-[ext_resource type="PackedScene" uid="uid://cgxdagti164ga" path="res://3d models/Guns/ak_47.tscn" id="2_dyn1a"]
-[ext_resource type="Script" path="res://Scenes/Marker3d.cs" id="2_ki6l7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o1wyu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_giit5"]
+height = 2.33235
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="Animation" id="Animation_wa621"]
+resource_name = "Death"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.5708)]
+}
+
+[sub_resource type="Animation" id="Animation_jlgl5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avkba"]
+_data = {
+"Death": SubResource("Animation_wa621"),
+"RESET": SubResource("Animation_jlgl5")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Raycast") groups=["MC"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_q7yn7")
 Sensitivity = 0.2
+Raycast = NodePath("Camera3D/RayCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_o1wyu")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_giit5")
+
+[node name="Playerbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Playerbox"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_giit5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.767948, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.274345, 0.767948, 0)
 current = true
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+target_position = Vector3(0, 0, -1000)
+collision_mask = 4
+
 [node name="Marker3D" type="Marker3D" parent="Camera3D"]
-transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, -0.0145316)
-script = ExtResource("2_ki6l7")
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.310562, -0.161908, 0.142844)
 
-[node name="ak47" parent="Camera3D/Marker3D" instance=ExtResource("2_dyn1a")]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Hud" parent="." instance=ExtResource("2_1eun8")]
+[node name="Health" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 276.0
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Health"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+step = 0.0
+value = 100.0
+
+[node name="BoxContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="RichTextLabel" type="Label" parent="Control/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "0/0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_avkba")
+}

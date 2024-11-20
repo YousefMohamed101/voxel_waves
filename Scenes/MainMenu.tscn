@@ -1,10 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cukmw8bmq3vfs"]
+[gd_scene load_steps=12 format=3 uid="uid://cukmw8bmq3vfs"]
 
 [ext_resource type="Texture2D" uid="uid://ddpefx5qc3k82" path="res://BG/Summer1.png" id="1_iiscj"]
 [ext_resource type="FontFile" uid="uid://b74epgiijrcsd" path="res://Fonts/Arbata Compact.ttf" id="2_ffa31"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="2_hnw67"]
-[ext_resource type="StyleBox" uid="uid://b4qhqnu52u2uh" path="res://Resources/Button_pressed.tres" id="2_jq2c7"]
-[ext_resource type="StyleBox" uid="uid://cm10twuk3gd4m" path="res://Resources/Button_Released.tres" id="3_j5plb"]
+[ext_resource type="Texture2D" uid="uid://l5aw0kqloyut" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a2.png" id="4_fba8e"]
+[ext_resource type="Texture2D" uid="uid://bg0usoip1rmuw" path="res://UI/Buttons/UI_Flat_Button_Large_Lock_02a1.png" id="5_16lew"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sb73"]
+texture = ExtResource("4_fba8e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2m7sl"]
+texture = ExtResource("5_16lew")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1yfx"]
+texture = ExtResource("4_fba8e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pgn62"]
+texture = ExtResource("5_16lew")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fmsfs"]
+texture = ExtResource("4_fba8e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n3erx"]
+texture = ExtResource("5_16lew")
 
 [node name="MainMenu" type="TextureRect"]
 anchors_preset = 15
@@ -33,14 +51,21 @@ grow_vertical = 2
 layout_mode = 2
 script = ExtResource("2_hnw67")
 
+[node name="Highscore" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992188, 1, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+text = "HighScore:"
+
 [node name="Play" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ffa31")
 theme_override_font_sizes/font_size = 80
-theme_override_styles/pressed = ExtResource("2_jq2c7")
-theme_override_styles/normal = ExtResource("3_j5plb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0sb73")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2m7sl")
 text = "PLAY"
 
 [node name="Setting" type="Button" parent="CenterContainer/VBoxContainer"]
@@ -49,8 +74,8 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ffa31")
 theme_override_font_sizes/font_size = 80
-theme_override_styles/pressed = ExtResource("2_jq2c7")
-theme_override_styles/normal = ExtResource("3_j5plb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_q1yfx")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pgn62")
 text = "Settings"
 
 [node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
@@ -60,6 +85,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ffa31")
 theme_override_font_sizes/font_size = 80
-theme_override_styles/pressed = ExtResource("2_jq2c7")
-theme_override_styles/normal = ExtResource("3_j5plb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fmsfs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_n3erx")
 text = "Quit"

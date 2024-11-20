@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl5l4hdxnpsts"]
+[gd_scene load_steps=4 format=3 uid="uid://cl5l4hdxnpsts"]
 
+[ext_resource type="Script" path="res://3d models/BulletRigidPhysics.cs" id="1_1d8uc"]
 [ext_resource type="ArrayMesh" uid="uid://cj2ayf41sms6k" path="res://3d models/testy.res" id="1_4fq4i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k452p"]
 
 [node name="BulletRigid" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
 mass = 0.008
+gravity_scale = 0.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_1d8uc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.00111176, 0.139996, 0, -0.139996, 0.00111176, 0, 0, 0, 0.14, 0, 0, 0)
@@ -15,3 +24,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-0.000275761, -0.039999, 6.03983e-09, -0.039999, 0.000275761, -3.79356e-19, -4.16387e-11, -6.03969e-09, -0.04, 0.0371574, 0, 0)
 shape = SubResource("CapsuleShape3D_k452p")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
